@@ -1,41 +1,33 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F15600 `(uc ~T0 @X0 1 tf1`uc ]
+[v F15556 `(uc ~T0 @X0 1 tf1`uc ]
 "68 ES_Framework.c
-[c E1 0 1 2 3 4 5 6 7 8 9 .. ]
-[n E1 . ES_NO_EVENT ES_ERROR ES_INIT ES_TIMEOUT ES_SHORT_TIMEOUT PATTERN_START PATTERN_END PATTERN_PAUSE PATTERN_UNPAUSE SPI32_TRANSMIT  ]
+[c E1 0 1 2 3 4 .. ]
+[n E1 . ES_NO_EVENT ES_ERROR ES_INIT ES_TIMEOUT ES_SHORT_TIMEOUT  ]
 "24 ES_Events.h
 [s S2041 `E1 1 `ui 1 ]
 [n S2041 ES_Event_t EventType EventParam ]
-[v F15602 `(S2041 ~T0 @X0 1 tf1`S2041 ]
+[v F15558 `(S2041 ~T0 @X0 1 tf1`S2041 ]
 "47 ES_Framework.c
-[s S2042 `*F15600 1 `*F15602 1 ]
+[s S2042 `*F15556 1 `*F15558 1 ]
 [n S2042 . InitFunc RunFunc ]
-"20 Pattern_ControlService.h
-[v _InitPatternControlService `(uc ~T0 @X0 0 ef1`uc ]
-"22
-[v _RunPatternControlService `(S2041 ~T0 @X0 0 ef1`S2041 ]
-"26 SPI32_ControlService.h
-[v _InitSPI32ControlService `(uc ~T0 @X0 0 ef1`uc ]
-"28
-[v _RunSPI32ControlService `(S2041 ~T0 @X0 0 ef1`S2041 ]
-"15 ToggleService.h
-[v _InitToggleService `(uc ~T0 @X0 0 ef1`uc ]
-"17
-[v _RunToggleService `(S2041 ~T0 @X0 0 ef1`S2041 ]
 "21 Can_XmitService.h
 [v _InitCan_XmitService `(uc ~T0 @X0 0 ef1`uc ]
 "23
 [v _RunCan_XmitService `(S2041 ~T0 @X0 0 ef1`S2041 ]
+"15 ToggleService.h
+[v _InitToggleService `(uc ~T0 @X0 0 ef1`uc ]
+"17
+[v _RunToggleService `(S2041 ~T0 @X0 0 ef1`S2041 ]
 "52 ES_Framework.c
 [s S2043 `*S2041 1 `uc 1 ]
 [n S2043 . pMem Size ]
 "242
-[c E15424 0 3999 19999 39999 79999 159999 199999 319999 399999 639999 1279999 .. ]
-[n E15424 . ES_Timer_RATE_OFF ES_Timer_RATE_100uS ES_Timer_RATE_500uS ES_Timer_RATE_1mS ES_Timer_RATE_2mS ES_Timer_RATE_4mS ES_Timer_RATE_5mS ES_Timer_RATE_8mS ES_Timer_RATE_10mS ES_Timer_RATE_16mS ES_Timer_RATE_32mS  ]
-[c E15495 0 1 2 3 4 5 .. ]
-[n E15495 . Success FailedPost FailedRun FailedPointer FailedIndex FailedInit  ]
+[c E15419 0 3999 19999 39999 79999 159999 199999 319999 399999 639999 1279999 .. ]
+[n E15419 . ES_Timer_RATE_OFF ES_Timer_RATE_100uS ES_Timer_RATE_500uS ES_Timer_RATE_1mS ES_Timer_RATE_2mS ES_Timer_RATE_4mS ES_Timer_RATE_5mS ES_Timer_RATE_8mS ES_Timer_RATE_10mS ES_Timer_RATE_16mS ES_Timer_RATE_32mS  ]
+[c E15490 0 1 2 3 4 5 .. ]
+[n E15490 . Success FailedPost FailedRun FailedPointer FailedIndex FailedInit  ]
 "44 ES_Timers.h
-[v _ES_Timer_Init `(v ~T0 @X0 0 ef1`E15424 ]
+[v _ES_Timer_Init `(v ~T0 @X0 0 ef1`E15419 ]
 "25 ES_Queue.h
 [v _ES_InitQueue `(uc ~T0 @X0 0 ef2`*S2041`uc ]
 "63 ES_LookupTables.h
@@ -52,18 +44,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ES_EnQueueFIFO `(uc ~T0 @X0 0 ef2`*S2041`S2041 ]
 "27
 [v _ES_EnQueueLIFO `(uc ~T0 @X0 0 ef2`*S2041`S2041 ]
-[; ;ES_Configure.h: 252: typedef enum {
-[; ;ES_Configure.h: 253: ES_NO_EVENT = 0,
-[; ;ES_Configure.h: 254: ES_ERROR,
-[; ;ES_Configure.h: 255: ES_INIT,
-[; ;ES_Configure.h: 256: ES_TIMEOUT,
-[; ;ES_Configure.h: 257: ES_SHORT_TIMEOUT,
-[; ;ES_Configure.h: 259: PATTERN_START,
-[; ;ES_Configure.h: 260: PATTERN_END,
-[; ;ES_Configure.h: 261: PATTERN_PAUSE,
-[; ;ES_Configure.h: 262: PATTERN_UNPAUSE,
-[; ;ES_Configure.h: 264: SPI32_TRANSMIT
-[; ;ES_Configure.h: 265: } ES_EventTyp_t;
+[; ;ES_Configure.h: 258: typedef enum {
+[; ;ES_Configure.h: 259: ES_NO_EVENT = 0,
+[; ;ES_Configure.h: 260: ES_ERROR,
+[; ;ES_Configure.h: 261: ES_INIT,
+[; ;ES_Configure.h: 262: ES_TIMEOUT,
+[; ;ES_Configure.h: 263: ES_SHORT_TIMEOUT,
+[; ;ES_Configure.h: 271: } ES_EventTyp_t;
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -14165,35 +14152,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_LookupTables.h: 38: extern uint16_t const BitNum2SetMask[];
 [; ;ES_LookupTables.h: 47: extern uint8_t const Nybble2MSBitNum[15];
 [; ;ES_LookupTables.h: 63: uint8_t ES_GetMSBitSet( uint16_t Val2Check);
-[; ;Pattern_ControlService.h: 17: typedef enum { Pattern_Startup, Pattern_Off, Pattern_Running, Pattern_Paused } PatternState_t ;
-[; ;Pattern_ControlService.h: 20: bool InitPatternControlService( uint8_t Priority );
-[; ;Pattern_ControlService.h: 21: bool PostPatternControlService( ES_Event ThisEvent );
-[; ;Pattern_ControlService.h: 22: ES_Event RunPatternControlService( ES_Event ThisEvent );
-[; ;Pattern_ControlService.h: 24: uint8_t * GetPatternConfigs(void);
-[; ;Pattern_ControlService.h: 26: void SetPattern(uint8_t PatternID);
-[; ;Pattern_ControlService.h: 27: void SetBrightness(uint8_t brightness);
-[; ;Pattern_ControlService.h: 28: void SetProfile(uint8_t profileID);
-[; ;Pattern_ControlService.h: 29: void SetPatternSpeed(uint8_t speed);
-[; ;SPI32_ControlService.h: 17: typedef enum { SPI32_Startup,
-[; ;SPI32_ControlService.h: 18: SPI32_Waiting4Send,
-[; ;SPI32_ControlService.h: 19: SPI32_SendingByte1,
-[; ;SPI32_ControlService.h: 20: SPI32_SendingByte2,
-[; ;SPI32_ControlService.h: 21: SPI32_SendingByte3,
-[; ;SPI32_ControlService.h: 22: SPI32_SendingByte4
-[; ;SPI32_ControlService.h: 23: } SPI32State_t ;
-[; ;SPI32_ControlService.h: 26: bool InitSPI32ControlService( uint8_t Priority );
-[; ;SPI32_ControlService.h: 27: bool PostSPI32ControlService( ES_Event ThisEvent );
-[; ;SPI32_ControlService.h: 28: ES_Event RunSPI32ControlService( ES_Event ThisEvent );
-[; ;SPI32_ControlService.h: 30: void SPI32_TransmitFrames(uint32_t *framePointer, uint8_t numFrames);
-[; ;ToggleService.h: 15: bool InitToggleService ( uint8_t Priority );
-[; ;ToggleService.h: 16: bool PostToggleService( ES_Event ThisEvent );
-[; ;ToggleService.h: 17: ES_Event RunToggleService( ES_Event ThisEvent );
 [; ;Can_XmitService.h: 21: bool InitCan_XmitService( uint8_t Priority );
 [; ;Can_XmitService.h: 22: bool PostCan_XmitService( ES_Event ThisEvent );
 [; ;Can_XmitService.h: 23: ES_Event RunCan_XmitService( ES_Event ThisEvent );
 [; ;Can_XmitService.h: 24: void CanXmitResponse(void);
 [; ;Can_XmitService.h: 25: void CanRCVResponse(void);
 [; ;Can_XmitService.h: 26: void XmitData(uint8_t DataByte);
+[; ;ToggleService.h: 15: bool InitToggleService ( uint8_t Priority );
+[; ;ToggleService.h: 16: bool PostToggleService( ES_Event ThisEvent );
+[; ;ToggleService.h: 17: ES_Event RunToggleService( ES_Event ThisEvent );
 [; ;ES_Framework.c: 39: typedef bool InitFunc_t( uint8_t Priority );
 [; ;ES_Framework.c: 40: typedef ES_Event RunFunc_t( ES_Event ThisEvent );
 [; ;ES_Framework.c: 42: typedef InitFunc_t * pInitFunc;
@@ -14212,31 +14179,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 :U ..
 :U ..
 "69
-&U _InitPatternControlService
-&U _RunPatternControlService
+&U _InitCan_XmitService
+&U _RunCan_XmitService
 ..
 :U ..
 "71
-&U _InitSPI32ControlService
-&U _RunSPI32ControlService
-..
-:U ..
-"74
 &U _InitToggleService
 &U _RunToggleService
-..
-:U ..
-"77
-&U _InitCan_XmitService
-&U _RunCan_XmitService
 ..
 ..
 ]
 [; ;ES_Framework.c: 68: static ES_ServDesc_t const ServDescList[] =
-[; ;ES_Framework.c: 69: { {InitPatternControlService, RunPatternControlService }
-[; ;ES_Framework.c: 71: ,{InitSPI32ControlService, RunSPI32ControlService }
-[; ;ES_Framework.c: 74: ,{InitToggleService, RunToggleService }
-[; ;ES_Framework.c: 77: ,{InitCan_XmitService, RunCan_XmitService }
+[; ;ES_Framework.c: 69: { {InitCan_XmitService, RunCan_XmitService }
+[; ;ES_Framework.c: 71: ,{InitToggleService, RunToggleService }
 [; ;ES_Framework.c: 116: };
 "122
 [v _Queue0 `S2041 ~T0 @X0 + -> 3 `i -> 1 `i s ]
@@ -14244,14 +14199,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "124
 [v _Queue1 `S2041 ~T0 @X0 + -> 3 `i -> 1 `i s ]
 [; ;ES_Framework.c: 124: static ES_Event Queue1[3+1];
-"127
-[v _Queue2 `S2041 ~T0 @X0 + -> 3 `i -> 1 `i s ]
-[; ;ES_Framework.c: 127: static ES_Event Queue2[3+1];
-"130
-[v _Queue3 `S2041 ~T0 @X0 + -> 3 `i -> 1 `i s ]
-[; ;ES_Framework.c: 130: static ES_Event Queue3[3+1];
 "172
-[v _EventQueues `CS2043 ~T0 @X0 -> 4 `i s ]
+[v _EventQueues `CS2043 ~T0 @X0 -> 2 `i s ]
 [i _EventQueues
 :U ..
 :U ..
@@ -14264,33 +14213,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 &U _Queue1
 -> / -> # _Queue1 `ui -> # *U + &U _Queue1 * -> -> -> 0 `i `ui `ux -> -> # *U &U _Queue1 `ui `ux `ui `uc
 ..
-:U ..
-"178
-&U _Queue2
--> / -> # _Queue2 `ui -> # *U + &U _Queue2 * -> -> -> 0 `i `ui `ux -> -> # *U &U _Queue2 `ui `ux `ui `uc
-..
-:U ..
-"181
-&U _Queue3
--> / -> # _Queue3 `ui -> # *U + &U _Queue3 * -> -> -> 0 `i `ui `ux -> -> # *U &U _Queue3 `ui `ux `ui `uc
-..
 ..
 ]
-[; ;ES_Framework.c: 172: static ES_QueueDesc_t const EventQueues[4] = {
+[; ;ES_Framework.c: 172: static ES_QueueDesc_t const EventQueues[2] = {
 [; ;ES_Framework.c: 173: { Queue0, (sizeof(Queue0)/sizeof(Queue0[0])) }
 [; ;ES_Framework.c: 175: , { Queue1, (sizeof(Queue1)/sizeof(Queue1[0])) }
-[; ;ES_Framework.c: 178: , { Queue2, (sizeof(Queue2)/sizeof(Queue2[0])) }
-[; ;ES_Framework.c: 181: , { Queue3, (sizeof(Queue3)/sizeof(Queue3[0])) }
 [; ;ES_Framework.c: 219: };
 "224
 [v _Ready `ui ~T0 @X0 1 e ]
 [; ;ES_Framework.c: 224: uint16_t Ready;
 "242
-[v _ES_Initialize `(E15495 ~T0 @X0 1 ef1`E15424 ]
+[v _ES_Initialize `(E15490 ~T0 @X0 1 ef1`E15419 ]
 {
 [; ;ES_Framework.c: 242: ES_Return_t ES_Initialize( TimerRate_t NewRate ){
 [e :U _ES_Initialize ]
-[v _NewRate `E15424 ~T0 @X0 1 r1 ]
+[v _NewRate `E15419 ~T0 @X0 1 r1 ]
 [f ]
 "243
 [v _i `uc ~T0 @X0 1 a ]
@@ -14307,16 +14244,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 2045 ]
 {
 [; ;ES_Framework.c: 247: if ( (ServDescList[i].InitFunc == (pInitFunc)0) ||
-[v F15595 `(uc ~T0 @X0 1 tf1`uc ]
-[v F15625 `*F15600 ~T0 @X0 1 t ]
-[v F15597 `(S2041 ~T0 @X0 1 tf1`S2041 ]
-[v F15627 `*F15602 ~T0 @X0 1 t ]
+[v F15551 `(uc ~T0 @X0 1 tf1`uc ]
+[v F15575 `*F15556 ~T0 @X0 1 t ]
+[v F15553 `(S2041 ~T0 @X0 1 tf1`S2041 ]
+[v F15577 `*F15558 ~T0 @X0 1 t ]
 [; ;ES_Framework.c: 248: (ServDescList[i].RunFunc == (pRunFunc)0) )
 "248
-[e $ ! || == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 0 -> -> -> 0 `i `*F15595 `C*F15600 == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 1 -> -> -> 0 `i `*F15597 `C*F15602 2048  ]
+[e $ ! || == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 0 -> -> -> 0 `i `*F15551 `C*F15556 == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 1 -> -> -> 0 `i `*F15553 `C*F15558 2048  ]
 [; ;ES_Framework.c: 249: return FailedPointer;
 "249
-[e ) . `E15495 3 ]
+[e ) . `E15490 3 ]
 [e $UE 2044  ]
 [e :U 2048 ]
 [; ;ES_Framework.c: 251: ES_InitQueue( EventQueues[i].pMem, EventQueues[i].Size );
@@ -14327,7 +14264,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ ! != -> ( *U . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 0 (1 _i `i -> 1 `i 2049  ]
 [; ;ES_Framework.c: 254: return FailedInit;
 "254
-[e ) . `E15495 5 ]
+[e ) . `E15490 5 ]
 [e $UE 2044  ]
 [e :U 2049 ]
 "255
@@ -14341,14 +14278,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Framework.c: 255: }
 [; ;ES_Framework.c: 256: return Success;
 "256
-[e ) . `E15495 0 ]
+[e ) . `E15490 0 ]
 [e $UE 2044  ]
 [; ;ES_Framework.c: 257: }
 "257
 [e :UE 2044 ]
 }
 "277
-[v _ES_Run `(E15495 ~T0 @X0 1 ef ]
+[v _ES_Run `(E15490 ~T0 @X0 1 ef ]
 {
 [; ;ES_Framework.c: 277: ES_Return_t ES_Run( void ){
 [e :U _ES_Run ]
@@ -14356,7 +14293,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "279
 [v _HighestPrior `uc ~T0 @X0 1 a ]
 "280
-[v F15633 `S2041 ~T0 @X0 1 s ThisEvent ]
+[v F15583 `S2041 ~T0 @X0 1 s ThisEvent ]
 [; ;ES_Framework.c: 279: uint8_t HighestPrior;
 [; ;ES_Framework.c: 280: static ES_Event ThisEvent;
 [; ;ES_Framework.c: 282: while(1){
@@ -14373,7 +14310,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _HighestPrior ( _ES_GetMSBitSet (1 _Ready ]
 [; ;ES_Framework.c: 289: if ( ES_DeQueue( EventQueues[HighestPrior].pMem, &ThisEvent ) == 0 ){
 "289
-[e $ ! == -> ( _ES_DeQueue (2 , -> . *U + &U _EventQueues * -> _HighestPrior `ux -> -> # *U &U _EventQueues `ui `ux 0 `*S2041 &U F15633 `i -> 0 `i 2057  ]
+[e $ ! == -> ( _ES_DeQueue (2 , -> . *U + &U _EventQueues * -> _HighestPrior `ux -> -> # *U &U _EventQueues `ui `ux 0 `*S2041 &U F15583 `i -> 0 `i 2057  ]
 {
 [; ;ES_Framework.c: 290: Ready &= ~BitNum2SetMask[HighestPrior];
 "290
@@ -14384,11 +14321,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Framework.c: 291: }
 [; ;ES_Framework.c: 292: if( ServDescList[HighestPrior].RunFunc(ThisEvent).EventType != ES_NO_EVENT) {
 "292
-[e $ ! != -> . ( *U . *U + &U _ServDescList * -> _HighestPrior `ux -> -> # *U &U _ServDescList `ui `ux 1 (1 F15633 0 `i -> . `E1 0 `i 2058  ]
+[e $ ! != -> . ( *U . *U + &U _ServDescList * -> _HighestPrior `ux -> -> # *U &U _ServDescList `ui `ux 1 (1 F15583 0 `i -> . `E1 0 `i 2058  ]
 {
 [; ;ES_Framework.c: 293: return FailedRun;
 "293
-[e ) . `E15495 2 ]
+[e ) . `E15490 2 ]
 [e $UE 2050  ]
 "294
 }
@@ -14413,7 +14350,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Framework.c: 299: }
 [; ;ES_Framework.c: 301: return Success;
 "301
-[e ) . `E15495 0 ]
+[e ) . `E15490 0 ]
 [e $UE 2050  ]
 [; ;ES_Framework.c: 302: }
 "302

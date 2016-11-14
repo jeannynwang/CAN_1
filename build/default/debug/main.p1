@@ -9,15 +9,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 "37780
 [v _SCS1 `Vb ~T0 @X0 0 e@32409 ]
 "39 main.c
-[c E15647 0 1 2 3 4 5 .. ]
-[n E15647 . Success FailedPost FailedRun FailedPointer FailedIndex FailedInit  ]
+[c E15642 0 1 2 3 4 5 .. ]
+[n E15642 . Success FailedPost FailedRun FailedPointer FailedIndex FailedInit  ]
 "55
-[c E15576 0 3999 19999 39999 79999 159999 199999 319999 399999 639999 1279999 .. ]
-[n E15576 . ES_Timer_RATE_OFF ES_Timer_RATE_100uS ES_Timer_RATE_500uS ES_Timer_RATE_1mS ES_Timer_RATE_2mS ES_Timer_RATE_4mS ES_Timer_RATE_5mS ES_Timer_RATE_8mS ES_Timer_RATE_10mS ES_Timer_RATE_16mS ES_Timer_RATE_32mS  ]
+[c E15571 0 3999 19999 39999 79999 159999 199999 319999 399999 639999 1279999 .. ]
+[n E15571 . ES_Timer_RATE_OFF ES_Timer_RATE_100uS ES_Timer_RATE_500uS ES_Timer_RATE_1mS ES_Timer_RATE_2mS ES_Timer_RATE_4mS ES_Timer_RATE_5mS ES_Timer_RATE_8mS ES_Timer_RATE_10mS ES_Timer_RATE_16mS ES_Timer_RATE_32mS  ]
 "36 ES_Framework.h
-[v _ES_Initialize `(E15647 ~T0 @X0 0 ef1`E15576 ]
+[v _ES_Initialize `(E15642 ~T0 @X0 0 ef1`E15571 ]
 "37
-[v _ES_Run `(E15647 ~T0 @X0 0 ef ]
+[v _ES_Run `(E15642 ~T0 @X0 0 ef ]
 "195 /Applications/microchip/xc8/v1.38/include/stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 [; ;stdint.h: 13: typedef signed char int8_t;
@@ -14140,18 +14140,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p x BOREN=OFF ]
 "13
 [p x PBADEN=OFF ]
-[; ;ES_Configure.h: 252: typedef enum {
-[; ;ES_Configure.h: 253: ES_NO_EVENT = 0,
-[; ;ES_Configure.h: 254: ES_ERROR,
-[; ;ES_Configure.h: 255: ES_INIT,
-[; ;ES_Configure.h: 256: ES_TIMEOUT,
-[; ;ES_Configure.h: 257: ES_SHORT_TIMEOUT,
-[; ;ES_Configure.h: 259: PATTERN_START,
-[; ;ES_Configure.h: 260: PATTERN_END,
-[; ;ES_Configure.h: 261: PATTERN_PAUSE,
-[; ;ES_Configure.h: 262: PATTERN_UNPAUSE,
-[; ;ES_Configure.h: 264: SPI32_TRANSMIT
-[; ;ES_Configure.h: 265: } ES_EventTyp_t;
+[; ;ES_Configure.h: 258: typedef enum {
+[; ;ES_Configure.h: 259: ES_NO_EVENT = 0,
+[; ;ES_Configure.h: 260: ES_ERROR,
+[; ;ES_Configure.h: 261: ES_INIT,
+[; ;ES_Configure.h: 262: ES_TIMEOUT,
+[; ;ES_Configure.h: 263: ES_SHORT_TIMEOUT,
+[; ;ES_Configure.h: 271: } ES_EventTyp_t;
 [; ;ES_Port.h: 70: typedef enum { ES_Timer_RATE_OFF = (0),
 [; ;ES_Port.h: 71: ES_Timer_RATE_100uS = 4000-1,
 [; ;ES_Port.h: 72: ES_Timer_RATE_500uS = 20000-1,
@@ -14230,14 +14225,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 "31
 [e = _SCS1 -> -> 1 `i `b ]
 "39
-[v _ErrorType `E15647 ~T0 @X0 1 a ]
+[v _ErrorType `E15642 ~T0 @X0 1 a ]
 [; ;main.c: 39: ES_Return_t ErrorType;
 [; ;main.c: 55: ErrorType = ES_Initialize(ES_Timer_RATE_1mS);
 "55
-[e = _ErrorType ( _ES_Initialize (1 . `E15576 3 ]
+[e = _ErrorType ( _ES_Initialize (1 . `E15571 3 ]
 [; ;main.c: 56: if ( ErrorType == Success ) {
 "56
-[e $ ! == -> _ErrorType `i -> . `E15647 0 `i 2048  ]
+[e $ ! == -> _ErrorType `i -> . `E15642 0 `i 2048  ]
 {
 [; ;main.c: 58: ErrorType = ES_Run();
 "58
@@ -14292,9 +14287,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 2049  ]
 "62
 [e :U 2050 ]
-[e [\ _ErrorType , $ . `E15647 1 2051
- , $ . `E15647 3 2052
- , $ . `E15647 5 2053
+[e [\ _ErrorType , $ . `E15642 1 2051
+ , $ . `E15642 3 2052
+ , $ . `E15642 5 2053
  2054 ]
 "75
 [e :U 2049 ]

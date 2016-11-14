@@ -44,6 +44,8 @@
    relevant to the behavior of this state machine
 */
 static void InitCanHardware(void);
+static void InitPins(void);
+static void ToggleDebugLED(void);
 
 /*---------------------------- Module Variables ---------------------------*/
 // everybody needs a state variable, you may need others as well.
@@ -107,7 +109,7 @@ bool InitCan_XmitService( uint8_t Priority )
  Author
      J. Edward Carryer, 10/23/11, 19:25
 ****************************************************************************/
-bool PostCan_TransmitService( ES_Event ThisEvent )
+bool PostCan_XmitService( ES_Event ThisEvent )
 {
   return ES_PostToService( MyPriority, ThisEvent);
 }
@@ -135,8 +137,15 @@ ES_Event RunCan_XmitService( ES_Event ThisEvent )
   ES_Event ReturnEvent;
 
   if (ThisEvent.EventType == ES_INIT) {
+     InitPins();
      InitCanHardware();
      XmitData(0xAA);
+  } 
+  if (ThisEvent.EventType == ES_TIMEOUT) {
+        if (ThisEvent.EventParam == CAN_DEBUG_TIMER) {
+            ToggleDebugLED();
+            XmitData(0xAA);
+        }
   }
   ReturnEvent.EventType = ES_NO_EVENT; // assume no errors
   return ReturnEvent;
@@ -160,16 +169,11 @@ void XmitData(uint8_t DataByte) {
 void CanXmitResponse(void) 
 {
     TXB0CONbits.TXREQ = 0;
-    ES_Timer_InitTimer(TOGGLE_TIMER, TOGGLE_TIME);
+    ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);
 }
 
 void CanRCVResponse(void)
 {
-    if (LATA1 == 1) {
-            LATA1 = 0;
-        } else if (LATA1 == 0) {
-            LATA1 = 1;
-    } 
     if (RXB0CONbits.RXFUL == 1) {
         RXB0CONbits.RXFUL = 0;
     }
@@ -179,11 +183,8 @@ void CanRCVResponse(void)
  ***************************************************************************/
 static void InitCanHardware(void)
 {
-	// 1. Initial LAT and TRIS bits for RX (RB3)and TX (RB2) CAN.
-	PORTB = 0x00; // Clear portB
-    LATB = 0x00; // Clear Data Latches
-    TRISBbits.TRISB2 = 0; // Set RB2 as output
-    TRISBbits.TRISB3 = 1; // Set RB3 as input
+    
+    //CIOCONbits.ENDRHI = 1; //see age 320
 	// 2. Ensure that the ECAN module is in Configuration
 	// mode.
 	CANCON = 0x80; //Request Configuration Mode p. 282
@@ -215,13 +216,12 @@ static void InitCanHardware(void)
 
     TXB0IE = 1; //enable interrupt
     RXB0IE = 1; //enable interrupt
-    PIE3 = 0xff;
-
+    PIE3 = 0xff; //enable peripheral interrupt
 
 	// Clear TXREQ to get buffer ready for transmission
-    TXB0CONbits.TXREQ = 0;
     TXB0IF = 0; //clear flag
     RXB0IF = 0;
+    TXB0CONbits.TXREQ = 0;
     RXB0CONbits.RXFUL = 0; //make sure buffer is cleared
     
     
@@ -233,5 +233,28 @@ static void InitCanHardware(void)
     while (CANSTATbits.OPMODE2 != 0); // wait 
 }
 
+static void InitPins(void) 
+{
+ // 1. Initial LAT and TRIS bits for RX (RB3)and TX (RB2) CAN.
+  PORTB = 0x00; // Clear portB
+  LATB = 0x00; // Clear Data Latches
+  PORTA = 0x00; // Clear portA
+  LATA = 0x00; // Clear Data Latches
+  ADCON1 = 0x0F; //Set as digital
+  TRISAbits.TRISA0 = 0; // Set as output (0 is output))
+  TRISAbits.TRISA1 = 0;
+  TRISBbits.TRISB2 = 0; // Set RB2 as output
+  TRISBbits.TRISB3 = 1; // Set RB3 as input
+  LATA1 = 0; //Set low initially
+  LATA0 = 1; // Set high initially
+}
 
+static void ToggleDebugLED(void)
+{
+    if (LATA1 == 1) {
+        LATA1 = 0;
+    } else if (LATA1 == 0) {
+        LATA1 = 1;
+    } 
+}
 

@@ -1,7 +1,7 @@
 
 # 1 "ToggleService.c"
 
-# 252 "ES_Configure.h"
+# 258 "ES_Configure.h"
 typedef enum {
 ES_NO_EVENT = 0,
 ES_ERROR,
@@ -9,12 +9,7 @@ ES_INIT,
 ES_TIMEOUT,
 ES_SHORT_TIMEOUT,
 
-PATTERN_START,
-PATTERN_END,
-PATTERN_PAUSE,
-PATTERN_UNPAUSE,
-
-SPI32_TRANSMIT
+# 271
 } ES_EventTyp_t;
 
 # 4 "/Applications/microchip/xc8/v1.38/include/__size_t.h"
@@ -17955,13 +17950,10 @@ ReturnEvent.EventType = ES_NO_EVENT;
 # 137
 if (ThisEvent.EventType == ES_TIMEOUT) {
 if (ThisEvent.EventParam == 2) {
-if (LATA1 == 1) {
-LATA1 = 0;
-} else if (LATA1 == 0) {
-LATA1 = 1;
-}
 
+# 145
 XmitData(0xAA);
+
 }
 }
 return ReturnEvent;

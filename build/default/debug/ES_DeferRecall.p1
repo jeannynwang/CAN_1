@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "56 ES_DeferRecall.c
-[c E1 0 1 2 3 4 5 6 7 8 9 .. ]
-[n E1 . ES_NO_EVENT ES_ERROR ES_INIT ES_TIMEOUT ES_SHORT_TIMEOUT PATTERN_START PATTERN_END PATTERN_PAUSE PATTERN_UNPAUSE SPI32_TRANSMIT  ]
+[c E1 0 1 2 3 4 .. ]
+[n E1 . ES_NO_EVENT ES_ERROR ES_INIT ES_TIMEOUT ES_SHORT_TIMEOUT  ]
 "24 ES_Events.h
 [s S2041 `E1 1 `ui 1 ]
 [n S2041 ES_Event_t EventType EventParam ]
@@ -9,18 +9,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ES_DeQueue `(uc ~T0 @X0 0 ef2`*S2041`*S2041 ]
 "40 ES_Framework.h
 [v _ES_PostToServiceLIFO `(uc ~T0 @X0 0 ef2`uc`S2041 ]
-[; ;ES_Configure.h: 252: typedef enum {
-[; ;ES_Configure.h: 253: ES_NO_EVENT = 0,
-[; ;ES_Configure.h: 254: ES_ERROR,
-[; ;ES_Configure.h: 255: ES_INIT,
-[; ;ES_Configure.h: 256: ES_TIMEOUT,
-[; ;ES_Configure.h: 257: ES_SHORT_TIMEOUT,
-[; ;ES_Configure.h: 259: PATTERN_START,
-[; ;ES_Configure.h: 260: PATTERN_END,
-[; ;ES_Configure.h: 261: PATTERN_PAUSE,
-[; ;ES_Configure.h: 262: PATTERN_UNPAUSE,
-[; ;ES_Configure.h: 264: SPI32_TRANSMIT
-[; ;ES_Configure.h: 265: } ES_EventTyp_t;
+[; ;ES_Configure.h: 258: typedef enum {
+[; ;ES_Configure.h: 259: ES_NO_EVENT = 0,
+[; ;ES_Configure.h: 260: ES_ERROR,
+[; ;ES_Configure.h: 261: ES_INIT,
+[; ;ES_Configure.h: 262: ES_TIMEOUT,
+[; ;ES_Configure.h: 263: ES_SHORT_TIMEOUT,
+[; ;ES_Configure.h: 271: } ES_EventTyp_t;
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);

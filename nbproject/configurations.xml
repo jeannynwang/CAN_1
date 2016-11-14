@@ -23,7 +23,6 @@
       <itemPath>ES_Timers.h</itemPath>
       <itemPath>ES_Types.h</itemPath>
       <itemPath>EventCheckers.h</itemPath>
-      <itemPath>ToggleService.h</itemPath>
       <itemPath>Can_XmitService.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -46,7 +45,6 @@
       <itemPath>EventCheckers.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>retarget.c</itemPath>
-      <itemPath>ToggleService.c</itemPath>
       <itemPath>Can_XmitService.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -256,7 +254,7 @@
         <property key="oscillator.rcfrequency" value="250"/>
         <property key="oscillator.rcfrequencyunit" value="Kilo"/>
         <property key="periphADC1.altscl" value="false"/>
-        <property key="periphADC1.minTacq" value=""/>
+        <property key="periphADC1.minTacq" value="5"/>
         <property key="periphADC1.tacqunits" value="microseconds"/>
         <property key="periphADC2.altscl" value="false"/>
         <property key="periphADC2.minTacq" value=""/>

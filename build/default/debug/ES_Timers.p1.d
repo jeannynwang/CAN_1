@@ -10,8 +10,6 @@ ES_Port.h  \
 ES_LookupTables.h  \
 ES_CheckEvents.h  \
 ToggleService.h  \
-Pattern_ControlService.h  \
-SPI32_ControlService.h  \
 ES_Events.h  \
 ES_General.h  \
 BITDEFS.H  \

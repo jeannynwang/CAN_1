@@ -136,15 +136,6 @@ void XmitData(uint8_t DataByte);
 
 
 
-# 15 "ToggleService.h"
-bool InitToggleService ( uint8_t Priority );
-bool PostToggleService( ES_Event ThisEvent );
-ES_Event RunToggleService( ES_Event ThisEvent );
-
-
-
-
-
 # 4 "/Applications/microchip/xc8/v1.38/include/__size_t.h"
 typedef unsigned size_t;
 

@@ -17915,7 +17915,7 @@ extern volatile __bit nWRITE @ (((unsigned) &SSPSTAT)*8) + 2;
 #pragma config BOREN = OFF
 #pragma config PBADEN = OFF
 
-# 252 "ES_Configure.h"
+# 258 "ES_Configure.h"
 typedef enum {
 ES_NO_EVENT = 0,
 ES_ERROR,
@@ -17923,12 +17923,7 @@ ES_INIT,
 ES_TIMEOUT,
 ES_SHORT_TIMEOUT,
 
-PATTERN_START,
-PATTERN_END,
-PATTERN_PAUSE,
-PATTERN_UNPAUSE,
-
-SPI32_TRANSMIT
+# 271
 } ES_EventTyp_t;
 
 # 70 "ES_Port.h"

@@ -17919,15 +17919,6 @@ void XmitData(uint8_t DataByte);
 
 
 
-# 15 "ToggleService.h"
-bool InitToggleService ( uint8_t Priority );
-bool PostToggleService( ES_Event ThisEvent );
-ES_Event RunToggleService( ES_Event ThisEvent );
-
-
-
-
-
 # 39 "ES_Framework.c"
 typedef bool InitFunc_t( uint8_t Priority );
 typedef ES_Event RunFunc_t( ES_Event ThisEvent );
@@ -17951,21 +17942,15 @@ uint8_t Size;
 static ES_ServDesc_t const ServDescList[] =
 { {InitCan_XmitService, RunCan_XmitService }
 
-,{InitToggleService, RunToggleService }
-
 # 116
 };
 
 # 122
 static ES_Event Queue0[3+1];
 
-static ES_Event Queue1[3+1];
-
 # 172
-static ES_QueueDesc_t const EventQueues[2] = {
+static ES_QueueDesc_t const EventQueues[1] = {
 { Queue0, (sizeof(Queue0)/sizeof(Queue0[0])) }
-
-, { Queue1, (sizeof(Queue1)/sizeof(Queue1[0])) }
 
 # 219
 };

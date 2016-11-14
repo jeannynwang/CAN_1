@@ -14077,7 +14077,4 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Can_XmitService.h: 24: void CanXmitResponse(void);
 [; ;Can_XmitService.h: 25: void CanRCVResponse(void);
 [; ;Can_XmitService.h: 26: void XmitData(uint8_t DataByte);
-[; ;ToggleService.h: 15: bool InitToggleService ( uint8_t Priority );
-[; ;ToggleService.h: 16: bool PostToggleService( ES_Event ThisEvent );
-[; ;ToggleService.h: 17: ES_Event RunToggleService( ES_Event ThisEvent );
 [; ;ES_PostList.c: 27: static bool PostToList( PostFunc_t *const*FuncList, uint8_t ListSize, ES_Event NewEvent);

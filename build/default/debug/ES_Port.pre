@@ -17837,7 +17837,7 @@ ES_TimerReturn_t ES_Timer_StartTimer(uint8_t Num);
 ES_TimerReturn_t ES_Timer_StopTimer(uint8_t Num);
 uint16_t ES_Timer_GetTime(void);
 
-# 252 "ES_Configure.h"
+# 258 "ES_Configure.h"
 typedef enum {
 ES_NO_EVENT = 0,
 ES_ERROR,
@@ -17845,12 +17845,7 @@ ES_INIT,
 ES_TIMEOUT,
 ES_SHORT_TIMEOUT,
 
-PATTERN_START,
-PATTERN_END,
-PATTERN_PAUSE,
-PATTERN_UNPAUSE,
-
-SPI32_TRANSMIT
+# 271
 } ES_EventTyp_t;
 
 # 24 "ES_Events.h"
@@ -17922,11 +17917,8 @@ CCP1IF = 0;
 TickCount++;
 SysTickCounter++;
 }
-if (SSPIF == 1)
-{
-SSPIF = 0;
-SPI32_EOTResponse();
-}
+
+# 133
 if (TXB0IF == 1)
 {
 TXB0IF = 0;
@@ -17935,19 +17927,18 @@ CanXmitResponse();
 if (RXB0IF == 1) {
 RXB0IF = 0;
 CanRCVResponse();
-
 }
 
 
 }
 
-# 192
+# 191
 uint16_t _HW_GetTickCount(void)
 {
 return (SysTickCounter);
 }
 
-# 218
+# 217
 bool _HW_Process_Pending_Ints( void )
 {
 while (TickCount > 0)

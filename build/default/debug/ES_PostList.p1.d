@@ -7,8 +7,6 @@ ES_PostList.h  \
 ES_Types.h  \
 ES_Port.h  \
 ToggleService.h  \
-Pattern_ControlService.h  \
-SPI32_ControlService.h  \
 ES_Events.h  \
 ES_General.h  \
 BITDEFS.H  \

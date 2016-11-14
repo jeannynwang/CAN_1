@@ -17902,15 +17902,6 @@ void XmitData(uint8_t DataByte);
 
 
 
-# 15 "ToggleService.h"
-bool InitToggleService ( uint8_t Priority );
-bool PostToggleService( ES_Event ThisEvent );
-ES_Event RunToggleService( ES_Event ThisEvent );
-
-
-
-
-
 # 38 "ES_LookupTables.h"
 extern uint16_t const BitNum2SetMask[];
 
@@ -17947,9 +17938,9 @@ static Timer_t TMR_TimerArray[sizeof(Tflag_t)*8]=
 static Tflag_t TMR_ActiveFlags;
 
 static pPostFunc const Timer2PostFunc[sizeof(Tflag_t)*8] =
-{ ((pPostFunc)0),
+{ PostCan_XmitService,
 ((pPostFunc)0),
-PostToggleService,
+((pPostFunc)0),
 ((pPostFunc)0),
 ((pPostFunc)0),
 ((pPostFunc)0),

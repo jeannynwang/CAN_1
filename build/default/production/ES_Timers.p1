@@ -5,8 +5,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "24 ES_Events.h
 [s S2041 `E1 1 `ui 1 ]
 [n S2041 ES_Event_t EventType EventParam ]
-"16 ToggleService.h
-[v _PostToggleService `(uc ~T0 @X0 0 ef1`S2041 ]
+"22 Can_XmitService.h
+[v _PostCan_XmitService `(uc ~T0 @X0 0 ef1`S2041 ]
 "131 ES_Timers.c
 [c E15419 0 3999 19999 39999 79999 159999 199999 319999 399999 639999 1279999 .. ]
 [n E15419 . ES_Timer_RATE_OFF ES_Timer_RATE_100uS ES_Timer_RATE_500uS ES_Timer_RATE_1mS ES_Timer_RATE_2mS ES_Timer_RATE_4mS ES_Timer_RATE_5mS ES_Timer_RATE_8mS ES_Timer_RATE_10mS ES_Timer_RATE_16mS ES_Timer_RATE_32mS  ]
@@ -14127,9 +14127,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Can_XmitService.h: 24: void CanXmitResponse(void);
 [; ;Can_XmitService.h: 25: void CanRCVResponse(void);
 [; ;Can_XmitService.h: 26: void XmitData(uint8_t DataByte);
-[; ;ToggleService.h: 15: bool InitToggleService ( uint8_t Priority );
-[; ;ToggleService.h: 16: bool PostToggleService( ES_Event ThisEvent );
-[; ;ToggleService.h: 17: ES_Event RunToggleService( ES_Event ThisEvent );
 [; ;ES_LookupTables.h: 38: extern uint16_t const BitNum2SetMask[];
 [; ;ES_LookupTables.h: 47: extern uint8_t const Nybble2MSBitNum[15];
 [; ;ES_LookupTables.h: 63: uint8_t ES_GetMSBitSet( uint16_t Val2Check);
@@ -14201,11 +14198,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [i _Timer2PostFunc
 :U ..
 "94
--> -> 0 `i `*F15451
+&U _PostCan_XmitService
 "95
 -> -> 0 `i `*F15451
 "96
-&U _PostToggleService
+-> -> 0 `i `*F15451
 "97
 -> -> 0 `i `*F15451
 "98
@@ -14235,9 +14232,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;ES_Timers.c: 93: static pPostFunc const Timer2PostFunc[sizeof(Tflag_t)*8] =
-[; ;ES_Timers.c: 94: { ((pPostFunc)0),
+[; ;ES_Timers.c: 94: { PostCan_XmitService,
 [; ;ES_Timers.c: 95: ((pPostFunc)0),
-[; ;ES_Timers.c: 96: PostToggleService,
+[; ;ES_Timers.c: 96: ((pPostFunc)0),
 [; ;ES_Timers.c: 97: ((pPostFunc)0),
 [; ;ES_Timers.c: 98: ((pPostFunc)0),
 [; ;ES_Timers.c: 99: ((pPostFunc)0),
@@ -14425,11 +14422,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _ES_Timer_Tick_Resp ]
 [f ]
 "286
-[v F15566 `ui ~T0 @X0 1 s NeedsProcessing ]
+[v F15560 `ui ~T0 @X0 1 s NeedsProcessing ]
 "287
-[v F15567 `uc ~T0 @X0 1 s NextTimer2Process ]
+[v F15561 `uc ~T0 @X0 1 s NextTimer2Process ]
 "288
-[v F15568 `S2041 ~T0 @X0 1 s NewEvent ]
+[v F15562 `S2041 ~T0 @X0 1 s NewEvent ]
 [; ;ES_Timers.c: 286: static Tflag_t NeedsProcessing;
 [; ;ES_Timers.c: 287: static uint8_t NextTimer2Process;
 [; ;ES_Timers.c: 288: static ES_Event NewEvent;
@@ -14441,43 +14438,43 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ES_Timers.c: 293: NeedsProcessing = TMR_ActiveFlags;
 "293
-[e = F15566 _TMR_ActiveFlags ]
+[e = F15560 _TMR_ActiveFlags ]
 [; ;ES_Timers.c: 294: do{
 "294
 [e :U 2056 ]
 {
 [; ;ES_Timers.c: 296: NextTimer2Process = ES_GetMSBitSet(NeedsProcessing);
 "296
-[e = F15567 ( _ES_GetMSBitSet (1 F15566 ]
+[e = F15561 ( _ES_GetMSBitSet (1 F15560 ]
 [; ;ES_Timers.c: 298: if(--TMR_TimerArray[NextTimer2Process] == 0)
 "298
-[e $ ! == =- *U + &U _TMR_TimerArray * -> F15567 `ux -> -> # *U &U _TMR_TimerArray `ui `ux -> -> 1 `i `ui -> -> 0 `i `ui 2057  ]
+[e $ ! == =- *U + &U _TMR_TimerArray * -> F15561 `ux -> -> # *U &U _TMR_TimerArray `ui `ux -> -> 1 `i `ui -> -> 0 `i `ui 2057  ]
 [; ;ES_Timers.c: 299: {
 "299
 {
 [; ;ES_Timers.c: 300: NewEvent.EventType = ES_TIMEOUT;
 "300
-[e = . F15568 0 . `E1 3 ]
+[e = . F15562 0 . `E1 3 ]
 [; ;ES_Timers.c: 301: NewEvent.EventParam = NextTimer2Process;
 "301
-[e = . F15568 1 -> F15567 `ui ]
+[e = . F15562 1 -> F15561 `ui ]
 [; ;ES_Timers.c: 303: Timer2PostFunc[NextTimer2Process](NewEvent);
 "303
-[e ( *U *U + &U _Timer2PostFunc * -> F15567 `ux -> -> # *U &U _Timer2PostFunc `ui `ux (1 F15568 ]
+[e ( *U *U + &U _Timer2PostFunc * -> F15561 `ux -> -> # *U &U _Timer2PostFunc `ui `ux (1 F15562 ]
 [; ;ES_Timers.c: 305: TMR_ActiveFlags &= ~BitNum2SetMask[NextTimer2Process];
 "305
-[e =& _TMR_ActiveFlags ~ *U + &U _BitNum2SetMask * -> F15567 `ux -> -> # *U &U _BitNum2SetMask `ui `ux ]
+[e =& _TMR_ActiveFlags ~ *U + &U _BitNum2SetMask * -> F15561 `ux -> -> # *U &U _BitNum2SetMask `ui `ux ]
 "306
 }
 [e :U 2057 ]
 [; ;ES_Timers.c: 306: }
 [; ;ES_Timers.c: 308: NeedsProcessing &= ~BitNum2SetMask[NextTimer2Process];
 "308
-[e =& F15566 ~ *U + &U _BitNum2SetMask * -> F15567 `ux -> -> # *U &U _BitNum2SetMask `ui `ux ]
+[e =& F15560 ~ *U + &U _BitNum2SetMask * -> F15561 `ux -> -> # *U &U _BitNum2SetMask `ui `ux ]
 "309
 }
 [; ;ES_Timers.c: 309: }while(NeedsProcessing != 0);
-[e $ != F15566 -> -> 0 `i `ui 2056  ]
+[e $ != F15560 -> -> 0 `i `ui 2056  ]
 [e :U 2055 ]
 "311
 }

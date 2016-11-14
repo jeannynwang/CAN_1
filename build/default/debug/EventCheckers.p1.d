@@ -8,8 +8,6 @@ ES_Types.h  \
 EventCheckers.h  \
 ES_Port.h  \
 ToggleService.h  \
-Pattern_ControlService.h  \
-SPI32_ControlService.h  \
 ES_Events.h  \
 BITDEFS.H  \
 ES_ServiceHeaders.h  \

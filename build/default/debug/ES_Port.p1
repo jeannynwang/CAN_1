@@ -18,11 +18,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _GIE `Vb ~T0 @X0 0 e@32663 ]
 "35320
 [v _CCP1IF `Vb ~T0 @X0 0 e@31986 ]
-"37832
-[v _SSPIF `Vb ~T0 @X0 0 e@31987 ]
-"23 SPI32_HW.h
-[v _SPI32_EOTResponse `(v ~T0 @X0 0 ef ]
-"38266 /Applications/microchip/xc8/v1.38/include/pic18f2480.h
+"38266
 [v _TXB0IF `Vb ~T0 @X0 0 e@32034 ]
 "24 Can_XmitService.h
 [v _CanXmitResponse `(v ~T0 @X0 0 ef ]
@@ -14095,18 +14091,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Timers.h: 48: ES_TimerReturn_t ES_Timer_StartTimer(uint8_t Num);
 [; ;ES_Timers.h: 49: ES_TimerReturn_t ES_Timer_StopTimer(uint8_t Num);
 [; ;ES_Timers.h: 50: uint16_t ES_Timer_GetTime(void);
-[; ;ES_Configure.h: 252: typedef enum {
-[; ;ES_Configure.h: 253: ES_NO_EVENT = 0,
-[; ;ES_Configure.h: 254: ES_ERROR,
-[; ;ES_Configure.h: 255: ES_INIT,
-[; ;ES_Configure.h: 256: ES_TIMEOUT,
-[; ;ES_Configure.h: 257: ES_SHORT_TIMEOUT,
-[; ;ES_Configure.h: 259: PATTERN_START,
-[; ;ES_Configure.h: 260: PATTERN_END,
-[; ;ES_Configure.h: 261: PATTERN_PAUSE,
-[; ;ES_Configure.h: 262: PATTERN_UNPAUSE,
-[; ;ES_Configure.h: 264: SPI32_TRANSMIT
-[; ;ES_Configure.h: 265: } ES_EventTyp_t;
+[; ;ES_Configure.h: 258: typedef enum {
+[; ;ES_Configure.h: 259: ES_NO_EVENT = 0,
+[; ;ES_Configure.h: 260: ES_ERROR,
+[; ;ES_Configure.h: 261: ES_INIT,
+[; ;ES_Configure.h: 262: ES_TIMEOUT,
+[; ;ES_Configure.h: 263: ES_SHORT_TIMEOUT,
+[; ;ES_Configure.h: 271: } ES_EventTyp_t;
 [; ;ES_Events.h: 24: typedef struct ES_Event_t {
 [; ;ES_Events.h: 25: ES_EventTyp_t EventType;
 [; ;ES_Events.h: 26: uint16_t EventParam;
@@ -14170,9 +14161,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "110
 [e :UE 2042 ]
 }
-[v F15492 `(v ~T0 @X0 1 tf ]
+[v F15487 `(v ~T0 @X0 1 tf ]
 "112
-[v _ISR `IF15492 ~T0 @X0 1 e ]
+[v _ISR `IF15487 ~T0 @X0 1 e ]
 "113
 {
 [; ;ES_Port.c: 112: void interrupt ISR ( void )
@@ -14180,9 +14171,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _ISR ]
 [f ]
 "115
-[v F15493 `ui ~T0 @X0 1 s LastTime ]
+[v F15488 `ui ~T0 @X0 1 s LastTime ]
 "116
-[v F15494 `ui ~T0 @X0 1 s NextTime ]
+[v F15489 `ui ~T0 @X0 1 s NextTime ]
 [; ;ES_Port.c: 115: static unsigned int LastTime;
 [; ;ES_Port.c: 116: static unsigned int NextTime;
 [; ;ES_Port.c: 118: if (CCP1IF == 1)
@@ -14193,16 +14184,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ES_Port.c: 120: LastTime = ((unsigned int)CCPR1H << 8)+ CCPR1L;
 "120
-[e = F15493 + << -> _CCPR1H `ui -> 8 `i -> _CCPR1L `ui ]
+[e = F15488 + << -> _CCPR1H `ui -> 8 `i -> _CCPR1L `ui ]
 [; ;ES_Port.c: 121: NextTime = LastTime + ((32000000L/4/4)/100);
 "121
-[e = F15494 -> + -> F15493 `l / / / -> 32000000 `l -> -> 4 `i `l -> -> 4 `i `l -> -> 100 `i `l `ui ]
+[e = F15489 -> + -> F15488 `l / / / -> 32000000 `l -> -> 4 `i `l -> -> 4 `i `l -> -> 100 `i `l `ui ]
 [; ;ES_Port.c: 122: CCPR1H = (unsigned char)(NextTime >> 8);
 "122
-[e = _CCPR1H -> >> F15494 -> 8 `i `uc ]
+[e = _CCPR1H -> >> F15489 -> 8 `i `uc ]
 [; ;ES_Port.c: 123: CCPR1L = (unsigned char)(NextTime & 0xFF);
 "123
-[e = _CCPR1L -> & F15494 -> -> 255 `i `ui `uc ]
+[e = _CCPR1L -> & F15489 -> -> 255 `i `ui `uc ]
 [; ;ES_Port.c: 124: CCP1IF = 0;
 "124
 [e = _CCP1IF -> -> 0 `i `b ]
@@ -14216,25 +14207,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 2044 ]
 [; ;ES_Port.c: 127: }
-[; ;ES_Port.c: 128: if (SSPIF == 1)
-"128
-[e $ ! == -> _SSPIF `i -> 1 `i 2045  ]
-[; ;ES_Port.c: 129: {
-"129
-{
-[; ;ES_Port.c: 130: SSPIF = 0;
-"130
-[e = _SSPIF -> -> 0 `i `b ]
-[; ;ES_Port.c: 131: SPI32_EOTResponse();
-"131
-[e ( _SPI32_EOTResponse ..  ]
-"132
-}
-[e :U 2045 ]
-[; ;ES_Port.c: 132: }
 [; ;ES_Port.c: 133: if (TXB0IF == 1)
 "133
-[e $ ! == -> _TXB0IF `i -> 1 `i 2046  ]
+[e $ ! == -> _TXB0IF `i -> 1 `i 2045  ]
 [; ;ES_Port.c: 134: {
 "134
 {
@@ -14246,11 +14221,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _CanXmitResponse ..  ]
 "137
 }
-[e :U 2046 ]
+[e :U 2045 ]
 [; ;ES_Port.c: 137: }
 [; ;ES_Port.c: 138: if (RXB0IF == 1) {
 "138
-[e $ ! == -> _RXB0IF `i -> 1 `i 2047  ]
+[e $ ! == -> _RXB0IF `i -> 1 `i 2046  ]
 {
 [; ;ES_Port.c: 139: RXB0IF = 0;
 "139
@@ -14258,63 +14233,63 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Port.c: 140: CanRCVResponse();
 "140
 [e ( _CanRCVResponse ..  ]
-"142
+"141
 }
-[e :U 2047 ]
-[; ;ES_Port.c: 142: }
-[; ;ES_Port.c: 145: }
-"145
+[e :U 2046 ]
+[; ;ES_Port.c: 141: }
+[; ;ES_Port.c: 144: }
+"144
 [e :UE 2043 ]
 }
-"192
+"191
 [v __HW_GetTickCount `(ui ~T0 @X0 1 ef ]
-"193
+"192
 {
-[; ;ES_Port.c: 192: uint16_t _HW_GetTickCount(void)
-[; ;ES_Port.c: 193: {
+[; ;ES_Port.c: 191: uint16_t _HW_GetTickCount(void)
+[; ;ES_Port.c: 192: {
 [e :U __HW_GetTickCount ]
 [f ]
-[; ;ES_Port.c: 194: return (SysTickCounter);
-"194
+[; ;ES_Port.c: 193: return (SysTickCounter);
+"193
 [e ) _SysTickCounter ]
-[e $UE 2048  ]
-[; ;ES_Port.c: 195: }
-"195
-[e :UE 2048 ]
+[e $UE 2047  ]
+[; ;ES_Port.c: 194: }
+"194
+[e :UE 2047 ]
 }
-"218
+"217
 [v __HW_Process_Pending_Ints `(uc ~T0 @X0 1 ef ]
-"219
+"218
 {
-[; ;ES_Port.c: 218: bool _HW_Process_Pending_Ints( void )
-[; ;ES_Port.c: 219: {
+[; ;ES_Port.c: 217: bool _HW_Process_Pending_Ints( void )
+[; ;ES_Port.c: 218: {
 [e :U __HW_Process_Pending_Ints ]
 [f ]
-[; ;ES_Port.c: 220: while (TickCount > 0)
-"220
-[e $U 2050  ]
-[e :U 2051 ]
-[; ;ES_Port.c: 221: {
-"221
-{
-[; ;ES_Port.c: 223: ES_Timer_Tick_Resp();
-"223
-[e ( _ES_Timer_Tick_Resp ..  ]
-[; ;ES_Port.c: 224: TickCount--;
-"224
-[e -- _TickCount -> -> 1 `i `uc ]
-"225
-}
+[; ;ES_Port.c: 219: while (TickCount > 0)
+"219
+[e $U 2049  ]
 [e :U 2050 ]
+[; ;ES_Port.c: 220: {
 "220
-[e $ > -> _TickCount `i -> 0 `i 2051  ]
-[e :U 2052 ]
-[; ;ES_Port.c: 225: }
-[; ;ES_Port.c: 227: return 1;
-"227
+{
+[; ;ES_Port.c: 222: ES_Timer_Tick_Resp();
+"222
+[e ( _ES_Timer_Tick_Resp ..  ]
+[; ;ES_Port.c: 223: TickCount--;
+"223
+[e -- _TickCount -> -> 1 `i `uc ]
+"224
+}
+[e :U 2049 ]
+"219
+[e $ > -> _TickCount `i -> 0 `i 2050  ]
+[e :U 2051 ]
+[; ;ES_Port.c: 224: }
+[; ;ES_Port.c: 226: return 1;
+"226
 [e ) -> -> 1 `i `uc ]
-[e $UE 2049  ]
-[; ;ES_Port.c: 228: }
-"228
-[e :UE 2049 ]
+[e $UE 2048  ]
+[; ;ES_Port.c: 227: }
+"227
+[e :UE 2048 ]
 }

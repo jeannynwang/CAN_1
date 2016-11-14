@@ -1,7 +1,7 @@
 
 # 1 "ES_Timers.c"
 
-# 252 "ES_Configure.h"
+# 258 "ES_Configure.h"
 typedef enum {
 ES_NO_EVENT = 0,
 ES_ERROR,
@@ -9,12 +9,7 @@ ES_INIT,
 ES_TIMEOUT,
 ES_SHORT_TIMEOUT,
 
-PATTERN_START,
-PATTERN_END,
-PATTERN_PAUSE,
-PATTERN_UNPAUSE,
-
-SPI32_TRANSMIT
+# 271
 } ES_EventTyp_t;
 
 # 4 "/Applications/microchip/xc8/v1.38/include/__size_t.h"
@@ -17896,40 +17891,13 @@ bool ES_PostAll( ES_Event ThisEvent );
 bool ES_PostToService( uint8_t WhichService, ES_Event ThisEvent);
 bool ES_PostToServiceLIFO( uint8_t WhichService, ES_Event TheEvent);
 
-# 17 "Pattern_ControlService.h"
-typedef enum { Pattern_Startup, Pattern_Off, Pattern_Running, Pattern_Paused } PatternState_t ;
-
-
-bool InitPatternControlService( uint8_t Priority );
-bool PostPatternControlService( ES_Event ThisEvent );
-ES_Event RunPatternControlService( ES_Event ThisEvent );
-
-uint8_t * GetPatternConfigs(void);
-
-void SetPattern(uint8_t PatternID);
-void SetBrightness(uint8_t brightness);
-void SetProfile(uint8_t profileID);
-void SetPatternSpeed(uint8_t speed);
-
-
-
-
-
-# 17 "SPI32_ControlService.h"
-typedef enum { SPI32_Startup,
-SPI32_Waiting4Send,
-SPI32_SendingByte1,
-SPI32_SendingByte2,
-SPI32_SendingByte3,
-SPI32_SendingByte4
-} SPI32State_t ;
-
-
-bool InitSPI32ControlService( uint8_t Priority );
-bool PostSPI32ControlService( ES_Event ThisEvent );
-ES_Event RunSPI32ControlService( ES_Event ThisEvent );
-
-void SPI32_TransmitFrames(uint32_t *framePointer, uint8_t numFrames);
+# 21 "Can_XmitService.h"
+bool InitCan_XmitService( uint8_t Priority );
+bool PostCan_XmitService( ES_Event ThisEvent );
+ES_Event RunCan_XmitService( ES_Event ThisEvent );
+void CanXmitResponse(void);
+void CanRCVResponse(void);
+void XmitData(uint8_t DataByte);
 
 
 
@@ -17939,17 +17907,6 @@ bool InitToggleService ( uint8_t Priority );
 bool PostToggleService( ES_Event ThisEvent );
 ES_Event RunToggleService( ES_Event ThisEvent );
 
-
-
-
-
-# 21 "Can_XmitService.h"
-bool InitCan_XmitService( uint8_t Priority );
-bool PostCan_XmitService( ES_Event ThisEvent );
-ES_Event RunCan_XmitService( ES_Event ThisEvent );
-void CanXmitResponse(void);
-void CanRCVResponse(void);
-void XmitData(uint8_t DataByte);
 
 
 
@@ -17990,8 +17947,8 @@ static Timer_t TMR_TimerArray[sizeof(Tflag_t)*8]=
 static Tflag_t TMR_ActiveFlags;
 
 static pPostFunc const Timer2PostFunc[sizeof(Tflag_t)*8] =
-{ PostPatternControlService,
-PostSPI32ControlService,
+{ ((pPostFunc)0),
+((pPostFunc)0),
 PostToggleService,
 ((pPostFunc)0),
 ((pPostFunc)0),

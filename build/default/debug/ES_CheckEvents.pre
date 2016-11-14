@@ -1,7 +1,7 @@
 
 # 1 "ES_CheckEvents.c"
 
-# 252 "ES_Configure.h"
+# 258 "ES_Configure.h"
 typedef enum {
 ES_NO_EVENT = 0,
 ES_ERROR,
@@ -9,12 +9,7 @@ ES_INIT,
 ES_TIMEOUT,
 ES_SHORT_TIMEOUT,
 
-PATTERN_START,
-PATTERN_END,
-PATTERN_PAUSE,
-PATTERN_UNPAUSE,
-
-SPI32_TRANSMIT
+# 271
 } ES_EventTyp_t;
 
 # 13 "/Applications/microchip/xc8/v1.38/include/stdint.h"

@@ -1,18 +1,4 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"34 ES_PostList.c
-[c E15431 0 1 2 3 4 5 6 7 8 9 .. ]
-[n E15431 . ES_NO_EVENT ES_ERROR ES_INIT ES_TIMEOUT ES_SHORT_TIMEOUT PATTERN_START PATTERN_END PATTERN_PAUSE PATTERN_UNPAUSE SPI32_TRANSMIT  ]
-"24 ES_Events.h
-[s S2041 `E15431 1 `ui 1 ]
-[n S2041 ES_Event_t EventType EventParam ]
-"21 Pattern_ControlService.h
-[v _PostPatternControlService `(uc ~T0 @X0 0 ef1`S2041 ]
-"27 SPI32_ControlService.h
-[v _PostSPI32ControlService `(uc ~T0 @X0 0 ef1`S2041 ]
-[v F15527 `(uc ~T0 @X0 1 tf1`S2041 ]
-[v F15525 `*F15527 ~T0 @X0 1 t ]
-"27 ES_PostList.c
-[v _PostToList `(uc ~T0 @X0 0 sf3`*C*F15527`uc`S2041 ]
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -14064,18 +14050,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Port.h: 93: void _HW_Timer_Init(TimerRate_t Rate);
 [; ;ES_Port.h: 94: bool _HW_Process_Pending_Ints( void );
 [; ;ES_Port.h: 95: uint16_t _HW_GetTickCount(void);
-[; ;ES_Configure.h: 252: typedef enum {
-[; ;ES_Configure.h: 253: ES_NO_EVENT = 0,
-[; ;ES_Configure.h: 254: ES_ERROR,
-[; ;ES_Configure.h: 255: ES_INIT,
-[; ;ES_Configure.h: 256: ES_TIMEOUT,
-[; ;ES_Configure.h: 257: ES_SHORT_TIMEOUT,
-[; ;ES_Configure.h: 259: PATTERN_START,
-[; ;ES_Configure.h: 260: PATTERN_END,
-[; ;ES_Configure.h: 261: PATTERN_PAUSE,
-[; ;ES_Configure.h: 262: PATTERN_UNPAUSE,
-[; ;ES_Configure.h: 264: SPI32_TRANSMIT
-[; ;ES_Configure.h: 265: } ES_EventTyp_t;
+[; ;ES_Configure.h: 258: typedef enum {
+[; ;ES_Configure.h: 259: ES_NO_EVENT = 0,
+[; ;ES_Configure.h: 260: ES_ERROR,
+[; ;ES_Configure.h: 261: ES_INIT,
+[; ;ES_Configure.h: 262: ES_TIMEOUT,
+[; ;ES_Configure.h: 263: ES_SHORT_TIMEOUT,
+[; ;ES_Configure.h: 271: } ES_EventTyp_t;
 [; ;ES_Events.h: 24: typedef struct ES_Event_t {
 [; ;ES_Events.h: 25: ES_EventTyp_t EventType;
 [; ;ES_Events.h: 26: uint16_t EventParam;
@@ -14090,117 +14071,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_PostList.h: 31: bool ES_PostList05( ES_Event);
 [; ;ES_PostList.h: 32: bool ES_PostList06( ES_Event);
 [; ;ES_PostList.h: 33: bool ES_PostList07( ES_Event);
-[; ;Pattern_ControlService.h: 17: typedef enum { Pattern_Startup, Pattern_Off, Pattern_Running, Pattern_Paused } PatternState_t ;
-[; ;Pattern_ControlService.h: 20: bool InitPatternControlService( uint8_t Priority );
-[; ;Pattern_ControlService.h: 21: bool PostPatternControlService( ES_Event ThisEvent );
-[; ;Pattern_ControlService.h: 22: ES_Event RunPatternControlService( ES_Event ThisEvent );
-[; ;Pattern_ControlService.h: 24: uint8_t * GetPatternConfigs(void);
-[; ;Pattern_ControlService.h: 26: void SetPattern(uint8_t PatternID);
-[; ;Pattern_ControlService.h: 27: void SetBrightness(uint8_t brightness);
-[; ;Pattern_ControlService.h: 28: void SetProfile(uint8_t profileID);
-[; ;Pattern_ControlService.h: 29: void SetPatternSpeed(uint8_t speed);
-[; ;SPI32_ControlService.h: 17: typedef enum { SPI32_Startup,
-[; ;SPI32_ControlService.h: 18: SPI32_Waiting4Send,
-[; ;SPI32_ControlService.h: 19: SPI32_SendingByte1,
-[; ;SPI32_ControlService.h: 20: SPI32_SendingByte2,
-[; ;SPI32_ControlService.h: 21: SPI32_SendingByte3,
-[; ;SPI32_ControlService.h: 22: SPI32_SendingByte4
-[; ;SPI32_ControlService.h: 23: } SPI32State_t ;
-[; ;SPI32_ControlService.h: 26: bool InitSPI32ControlService( uint8_t Priority );
-[; ;SPI32_ControlService.h: 27: bool PostSPI32ControlService( ES_Event ThisEvent );
-[; ;SPI32_ControlService.h: 28: ES_Event RunSPI32ControlService( ES_Event ThisEvent );
-[; ;SPI32_ControlService.h: 30: void SPI32_TransmitFrames(uint32_t *framePointer, uint8_t numFrames);
-[; ;ToggleService.h: 15: bool InitToggleService ( uint8_t Priority );
-[; ;ToggleService.h: 16: bool PostToggleService( ES_Event ThisEvent );
-[; ;ToggleService.h: 17: ES_Event RunToggleService( ES_Event ThisEvent );
 [; ;Can_XmitService.h: 21: bool InitCan_XmitService( uint8_t Priority );
 [; ;Can_XmitService.h: 22: bool PostCan_XmitService( ES_Event ThisEvent );
 [; ;Can_XmitService.h: 23: ES_Event RunCan_XmitService( ES_Event ThisEvent );
 [; ;Can_XmitService.h: 24: void CanXmitResponse(void);
 [; ;Can_XmitService.h: 25: void CanRCVResponse(void);
 [; ;Can_XmitService.h: 26: void XmitData(uint8_t DataByte);
+[; ;ToggleService.h: 15: bool InitToggleService ( uint8_t Priority );
+[; ;ToggleService.h: 16: bool PostToggleService( ES_Event ThisEvent );
+[; ;ToggleService.h: 17: ES_Event RunToggleService( ES_Event ThisEvent );
 [; ;ES_PostList.c: 27: static bool PostToList( PostFunc_t *const*FuncList, uint8_t ListSize, ES_Event NewEvent);
-[v F15532 `(uc ~T0 @X0 1 tf1`S2041 ]
-[v F15533 `*F15532 ~T0 @X0 1 t ]
-"34 ES_PostList.c
-[v _DistList00 `C*F15532 ~T0 @X0 -> 0 `x s ]
-[i _DistList00
-:U ..
-&U _PostPatternControlService
-&U _PostSPI32ControlService
-..
-]
-[; ;ES_PostList.c: 34: static PostFunc_t * const DistList00[] = {PostPatternControlService, PostSPI32ControlService };
-"78
-[v _ES_PostList00 `(uc ~T0 @X0 1 ef1`S2041 ]
-{
-[; ;ES_PostList.c: 78: bool ES_PostList00( ES_Event NewEvent) {
-[e :U _ES_PostList00 ]
-[v _NewEvent `S2041 ~T0 @X0 1 r1 ]
-[f ]
-[; ;ES_PostList.c: 79: return PostToList( DistList00, (sizeof(DistList00)/sizeof(DistList00[0])), NewEvent);
-"79
-[e ) ( _PostToList (3 , , &U _DistList00 -> / -> # _DistList00 `ui -> # *U + &U _DistList00 * -> -> -> 0 `i `ui `ux -> -> # *U &U _DistList00 `ui `ux `ui `uc _NewEvent ]
-[e $UE 2042  ]
-[; ;ES_PostList.c: 80: }
-"80
-[e :UE 2042 ]
-}
-"142
-[v _PostToList `(uc ~T0 @X0 1 sf3`*C*F15527`uc`S2041 ]
-{
-[; ;ES_PostList.c: 142: static bool PostToList( PostFunc_t *const*List, uint8_t ListSize, ES_Event NewEvent){
-[e :U _PostToList ]
-[v F15539 `(uc ~T0 @X0 1 tf1`S2041 ]
-[v F15537 `*F15539 ~T0 @X0 1 t ]
-[v _List `*C*F15539 ~T0 @X0 1 r1 ]
-[v _ListSize `uc ~T0 @X0 1 r2 ]
-[v _NewEvent `S2041 ~T0 @X0 1 r3 ]
-[f ]
-"143
-[v _i `uc ~T0 @X0 1 a ]
-[; ;ES_PostList.c: 143: uint8_t i;
-[; ;ES_PostList.c: 145: for ( i=0; i< ListSize; i++) {
-"145
-{
-[e = _i -> -> 0 `i `uc ]
-[e $U 2047  ]
-[e :U 2044 ]
-{
-[; ;ES_PostList.c: 146: if ( List[i](NewEvent) != 1 )
-"146
-[e $ ! != -> ( *U *U + _List * -> _i `ux -> -> # *U _List `ui `ux (1 _NewEvent `i -> 1 `i 2048  ]
-[; ;ES_PostList.c: 147: break;
-"147
-[e $U 2045  ]
-[e :U 2048 ]
-"148
-}
-"145
-[e ++ _i -> -> 1 `i `uc ]
-[e :U 2047 ]
-[e $ < -> _i `i -> _ListSize `i 2044  ]
-[e :U 2045 ]
-"148
-}
-[; ;ES_PostList.c: 148: }
-[; ;ES_PostList.c: 149: if ( i != ListSize )
-"149
-[e $ ! != -> _i `i -> _ListSize `i 2049  ]
-[; ;ES_PostList.c: 150: return (0);
-"150
-[e ) -> -> 0 `i `uc ]
-[e $UE 2043  ]
-[e $U 2050  ]
-"151
-[e :U 2049 ]
-[; ;ES_PostList.c: 151: else
-[; ;ES_PostList.c: 152: return(1);
-"152
-[e ) -> -> 1 `i `uc ]
-[e $UE 2043  ]
-[e :U 2050 ]
-[; ;ES_PostList.c: 153: }
-"153
-[e :UE 2043 ]
-}

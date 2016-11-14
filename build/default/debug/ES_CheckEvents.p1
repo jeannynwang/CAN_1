@@ -1,18 +1,13 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "23 EventCheckers.h
 [v _Check4Keystroke `(uc ~T0 @X0 0 ef ]
-[; ;ES_Configure.h: 252: typedef enum {
-[; ;ES_Configure.h: 253: ES_NO_EVENT = 0,
-[; ;ES_Configure.h: 254: ES_ERROR,
-[; ;ES_Configure.h: 255: ES_INIT,
-[; ;ES_Configure.h: 256: ES_TIMEOUT,
-[; ;ES_Configure.h: 257: ES_SHORT_TIMEOUT,
-[; ;ES_Configure.h: 259: PATTERN_START,
-[; ;ES_Configure.h: 260: PATTERN_END,
-[; ;ES_Configure.h: 261: PATTERN_PAUSE,
-[; ;ES_Configure.h: 262: PATTERN_UNPAUSE,
-[; ;ES_Configure.h: 264: SPI32_TRANSMIT
-[; ;ES_Configure.h: 265: } ES_EventTyp_t;
+[; ;ES_Configure.h: 258: typedef enum {
+[; ;ES_Configure.h: 259: ES_NO_EVENT = 0,
+[; ;ES_Configure.h: 260: ES_ERROR,
+[; ;ES_Configure.h: 261: ES_INIT,
+[; ;ES_Configure.h: 262: ES_TIMEOUT,
+[; ;ES_Configure.h: 263: ES_SHORT_TIMEOUT,
+[; ;ES_Configure.h: 271: } ES_EventTyp_t;
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -50,10 +45,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_CheckEvents.h: 24: typedef CheckFunc (*pCheckFunc);
 [; ;ES_CheckEvents.h: 26: bool ES_CheckUserEvents( void );
 [; ;EventCheckers.h: 23: bool Check4Keystroke(void);
-[v F56 `(uc ~T0 @X0 1 tf ]
-[v F57 `*F56 ~T0 @X0 1 t ]
+[v F51 `(uc ~T0 @X0 1 tf ]
+[v F52 `*F51 ~T0 @X0 1 t ]
 "31 EventCheckers.h
-[v _ES_EventList `C*F56 ~T0 @X0 -> 0 `x s ]
+[v _ES_EventList `C*F51 ~T0 @X0 -> 0 `x s ]
 [i _ES_EventList
 :U ..
 &U _Check4Keystroke

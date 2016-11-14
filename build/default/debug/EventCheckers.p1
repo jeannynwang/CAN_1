@@ -1,16 +1,11 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[; ;ES_Configure.h: 252: typedef enum {
-[; ;ES_Configure.h: 253: ES_NO_EVENT = 0,
-[; ;ES_Configure.h: 254: ES_ERROR,
-[; ;ES_Configure.h: 255: ES_INIT,
-[; ;ES_Configure.h: 256: ES_TIMEOUT,
-[; ;ES_Configure.h: 257: ES_SHORT_TIMEOUT,
-[; ;ES_Configure.h: 259: PATTERN_START,
-[; ;ES_Configure.h: 260: PATTERN_END,
-[; ;ES_Configure.h: 261: PATTERN_PAUSE,
-[; ;ES_Configure.h: 262: PATTERN_UNPAUSE,
-[; ;ES_Configure.h: 264: SPI32_TRANSMIT
-[; ;ES_Configure.h: 265: } ES_EventTyp_t;
+[; ;ES_Configure.h: 258: typedef enum {
+[; ;ES_Configure.h: 259: ES_NO_EVENT = 0,
+[; ;ES_Configure.h: 260: ES_ERROR,
+[; ;ES_Configure.h: 261: ES_INIT,
+[; ;ES_Configure.h: 262: ES_TIMEOUT,
+[; ;ES_Configure.h: 263: ES_SHORT_TIMEOUT,
+[; ;ES_Configure.h: 271: } ES_EventTyp_t;
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -54,35 +49,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_PostList.h: 31: bool ES_PostList05( ES_Event);
 [; ;ES_PostList.h: 32: bool ES_PostList06( ES_Event);
 [; ;ES_PostList.h: 33: bool ES_PostList07( ES_Event);
-[; ;Pattern_ControlService.h: 17: typedef enum { Pattern_Startup, Pattern_Off, Pattern_Running, Pattern_Paused } PatternState_t ;
-[; ;Pattern_ControlService.h: 20: bool InitPatternControlService( uint8_t Priority );
-[; ;Pattern_ControlService.h: 21: bool PostPatternControlService( ES_Event ThisEvent );
-[; ;Pattern_ControlService.h: 22: ES_Event RunPatternControlService( ES_Event ThisEvent );
-[; ;Pattern_ControlService.h: 24: uint8_t * GetPatternConfigs(void);
-[; ;Pattern_ControlService.h: 26: void SetPattern(uint8_t PatternID);
-[; ;Pattern_ControlService.h: 27: void SetBrightness(uint8_t brightness);
-[; ;Pattern_ControlService.h: 28: void SetProfile(uint8_t profileID);
-[; ;Pattern_ControlService.h: 29: void SetPatternSpeed(uint8_t speed);
-[; ;SPI32_ControlService.h: 17: typedef enum { SPI32_Startup,
-[; ;SPI32_ControlService.h: 18: SPI32_Waiting4Send,
-[; ;SPI32_ControlService.h: 19: SPI32_SendingByte1,
-[; ;SPI32_ControlService.h: 20: SPI32_SendingByte2,
-[; ;SPI32_ControlService.h: 21: SPI32_SendingByte3,
-[; ;SPI32_ControlService.h: 22: SPI32_SendingByte4
-[; ;SPI32_ControlService.h: 23: } SPI32State_t ;
-[; ;SPI32_ControlService.h: 26: bool InitSPI32ControlService( uint8_t Priority );
-[; ;SPI32_ControlService.h: 27: bool PostSPI32ControlService( ES_Event ThisEvent );
-[; ;SPI32_ControlService.h: 28: ES_Event RunSPI32ControlService( ES_Event ThisEvent );
-[; ;SPI32_ControlService.h: 30: void SPI32_TransmitFrames(uint32_t *framePointer, uint8_t numFrames);
-[; ;ToggleService.h: 15: bool InitToggleService ( uint8_t Priority );
-[; ;ToggleService.h: 16: bool PostToggleService( ES_Event ThisEvent );
-[; ;ToggleService.h: 17: ES_Event RunToggleService( ES_Event ThisEvent );
 [; ;Can_XmitService.h: 21: bool InitCan_XmitService( uint8_t Priority );
 [; ;Can_XmitService.h: 22: bool PostCan_XmitService( ES_Event ThisEvent );
 [; ;Can_XmitService.h: 23: ES_Event RunCan_XmitService( ES_Event ThisEvent );
 [; ;Can_XmitService.h: 24: void CanXmitResponse(void);
 [; ;Can_XmitService.h: 25: void CanRCVResponse(void);
 [; ;Can_XmitService.h: 26: void XmitData(uint8_t DataByte);
+[; ;ToggleService.h: 15: bool InitToggleService ( uint8_t Priority );
+[; ;ToggleService.h: 16: bool PostToggleService( ES_Event ThisEvent );
+[; ;ToggleService.h: 17: ES_Event RunToggleService( ES_Event ThisEvent );
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);

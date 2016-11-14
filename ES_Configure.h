@@ -30,7 +30,7 @@
 /****************************************************************************/
 // This macro determines that number of services that are *actually* used in
 // a particular application. It will vary in value from 1 to MAX_NUM_SERVICES
-#define NUM_SERVICES 2
+#define NUM_SERVICES 1
 
 /****************************************************************************/
 // These are the definitions for Service 0, the lowest priority service.
@@ -315,9 +315,9 @@ typedef enum {  /* Framework Events */
 // Unlike services, any combination of timers may be used and there is no
 // priority in servicing them
 #define TIMER_UNUSED ((pPostFunc)0)
-#define TIMER0_RESP_FUNC TIMER_UNUSED
+#define TIMER0_RESP_FUNC PostCan_XmitService
 #define TIMER1_RESP_FUNC TIMER_UNUSED
-#define TIMER2_RESP_FUNC PostToggleService
+#define TIMER2_RESP_FUNC TIMER_UNUSED
 #define TIMER3_RESP_FUNC TIMER_UNUSED
 #define TIMER4_RESP_FUNC TIMER_UNUSED
 #define TIMER5_RESP_FUNC TIMER_UNUSED
@@ -339,7 +339,7 @@ typedef enum {  /* Framework Events */
 // the timer number matches where the timer event will be routed
 // These symbolic names should be changed to be relevant to your application 
 
-//#define PATTERN_UPDATE_TIMER    0
+#define CAN_DEBUG_TIMER          0
 //#define SPI_BYTE_DELAY_TIMER    1
-#define TOGGLE_TIMER            2
+//#define TOGGLE_TIMER            2
 #endif /* CONFIGURE_H */

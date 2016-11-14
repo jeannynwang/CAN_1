@@ -17864,15 +17864,6 @@ void XmitData(uint8_t DataByte);
 
 
 
-# 15 "ToggleService.h"
-bool InitToggleService ( uint8_t Priority );
-bool PostToggleService( ES_Event ThisEvent );
-ES_Event RunToggleService( ES_Event ThisEvent );
-
-
-
-
-
 # 27 "ES_PostList.c"
 static bool PostToList( PostFunc_t *const*FuncList, uint8_t ListSize, ES_Event NewEvent);
 

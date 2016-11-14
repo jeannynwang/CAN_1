@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "65 ToggleService.c
-[c E1 0 1 2 3 4 5 6 7 8 9 .. ]
-[n E1 . ES_NO_EVENT ES_ERROR ES_INIT ES_TIMEOUT ES_SHORT_TIMEOUT PATTERN_START PATTERN_END PATTERN_PAUSE PATTERN_UNPAUSE SPI32_TRANSMIT  ]
+[c E1 0 1 2 3 4 .. ]
+[n E1 . ES_NO_EVENT ES_ERROR ES_INIT ES_TIMEOUT ES_SHORT_TIMEOUT  ]
 "24 ES_Events.h
 [s S2041 `E1 1 `ui 1 ]
 [n S2041 ES_Event_t EventType EventParam ]
@@ -21,18 +21,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ES_PostToService `(uc ~T0 @X0 0 ef2`uc`S2041 ]
 "26 Can_XmitService.h
 [v _XmitData `(v ~T0 @X0 0 ef1`uc ]
-[; ;ES_Configure.h: 252: typedef enum {
-[; ;ES_Configure.h: 253: ES_NO_EVENT = 0,
-[; ;ES_Configure.h: 254: ES_ERROR,
-[; ;ES_Configure.h: 255: ES_INIT,
-[; ;ES_Configure.h: 256: ES_TIMEOUT,
-[; ;ES_Configure.h: 257: ES_SHORT_TIMEOUT,
-[; ;ES_Configure.h: 259: PATTERN_START,
-[; ;ES_Configure.h: 260: PATTERN_END,
-[; ;ES_Configure.h: 261: PATTERN_PAUSE,
-[; ;ES_Configure.h: 262: PATTERN_UNPAUSE,
-[; ;ES_Configure.h: 264: SPI32_TRANSMIT
-[; ;ES_Configure.h: 265: } ES_EventTyp_t;
+[; ;ES_Configure.h: 258: typedef enum {
+[; ;ES_Configure.h: 259: ES_NO_EVENT = 0,
+[; ;ES_Configure.h: 260: ES_ERROR,
+[; ;ES_Configure.h: 261: ES_INIT,
+[; ;ES_Configure.h: 262: ES_TIMEOUT,
+[; ;ES_Configure.h: 263: ES_SHORT_TIMEOUT,
+[; ;ES_Configure.h: 271: } ES_EventTyp_t;
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -14250,44 +14245,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 "138
 [e $ ! == . _ThisEvent 1 -> -> 2 `i `ui 2048  ]
 {
-[; ;ToggleService.c: 139: if (LATA1 == 1) {
-"139
-[e $ ! == -> _LATA1 `i -> 1 `i 2049  ]
-{
-[; ;ToggleService.c: 140: LATA1 = 0;
-"140
-[e = _LATA1 -> -> 0 `i `b ]
-"141
-}
-[; ;ToggleService.c: 141: } else if (LATA1 == 0) {
-[e $U 2050  ]
-[e :U 2049 ]
-[e $ ! == -> _LATA1 `i -> 0 `i 2051  ]
-{
-[; ;ToggleService.c: 142: LATA1 = 1;
-"142
-[e = _LATA1 -> -> 1 `i `b ]
-"143
-}
-[e :U 2051 ]
-"145
-[e :U 2050 ]
-[; ;ToggleService.c: 143: }
 [; ;ToggleService.c: 145: XmitData(0xAA);
+"145
 [e ( _XmitData (1 -> -> 170 `i `uc ]
-"146
-}
-[e :U 2048 ]
 "147
 }
-[e :U 2047 ]
-[; ;ToggleService.c: 146: }
-[; ;ToggleService.c: 147: }
-[; ;ToggleService.c: 148: return ReturnEvent;
+[e :U 2048 ]
 "148
+}
+[e :U 2047 ]
+[; ;ToggleService.c: 147: }
+[; ;ToggleService.c: 148: }
+[; ;ToggleService.c: 149: return ReturnEvent;
+"149
 [e ) _ReturnEvent ]
 [e $UE 2046  ]
-[; ;ToggleService.c: 149: }
-"149
+[; ;ToggleService.c: 150: }
+"150
 [e :UE 2046 ]
 }

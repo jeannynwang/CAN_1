@@ -17822,7 +17822,7 @@ void _HW_Timer_Init(TimerRate_t Rate);
 bool _HW_Process_Pending_Ints( void );
 uint16_t _HW_GetTickCount(void);
 
-# 252 "ES_Configure.h"
+# 258 "ES_Configure.h"
 typedef enum {
 ES_NO_EVENT = 0,
 ES_ERROR,
@@ -17830,12 +17830,7 @@ ES_INIT,
 ES_TIMEOUT,
 ES_SHORT_TIMEOUT,
 
-PATTERN_START,
-PATTERN_END,
-PATTERN_PAUSE,
-PATTERN_UNPAUSE,
-
-SPI32_TRANSMIT
+# 271
 } ES_EventTyp_t;
 
 # 24 "ES_Events.h"
@@ -17858,40 +17853,13 @@ bool ES_PostList05( ES_Event);
 bool ES_PostList06( ES_Event);
 bool ES_PostList07( ES_Event);
 
-# 17 "Pattern_ControlService.h"
-typedef enum { Pattern_Startup, Pattern_Off, Pattern_Running, Pattern_Paused } PatternState_t ;
-
-
-bool InitPatternControlService( uint8_t Priority );
-bool PostPatternControlService( ES_Event ThisEvent );
-ES_Event RunPatternControlService( ES_Event ThisEvent );
-
-uint8_t * GetPatternConfigs(void);
-
-void SetPattern(uint8_t PatternID);
-void SetBrightness(uint8_t brightness);
-void SetProfile(uint8_t profileID);
-void SetPatternSpeed(uint8_t speed);
-
-
-
-
-
-# 17 "SPI32_ControlService.h"
-typedef enum { SPI32_Startup,
-SPI32_Waiting4Send,
-SPI32_SendingByte1,
-SPI32_SendingByte2,
-SPI32_SendingByte3,
-SPI32_SendingByte4
-} SPI32State_t ;
-
-
-bool InitSPI32ControlService( uint8_t Priority );
-bool PostSPI32ControlService( ES_Event ThisEvent );
-ES_Event RunSPI32ControlService( ES_Event ThisEvent );
-
-void SPI32_TransmitFrames(uint32_t *framePointer, uint8_t numFrames);
+# 21 "Can_XmitService.h"
+bool InitCan_XmitService( uint8_t Priority );
+bool PostCan_XmitService( ES_Event ThisEvent );
+ES_Event RunCan_XmitService( ES_Event ThisEvent );
+void CanXmitResponse(void);
+void CanRCVResponse(void);
+void XmitData(uint8_t DataByte);
 
 
 
@@ -17905,39 +17873,6 @@ ES_Event RunToggleService( ES_Event ThisEvent );
 
 
 
-# 21 "Can_XmitService.h"
-bool InitCan_XmitService( uint8_t Priority );
-bool PostCan_XmitService( ES_Event ThisEvent );
-ES_Event RunCan_XmitService( ES_Event ThisEvent );
-void CanXmitResponse(void);
-void CanRCVResponse(void);
-void XmitData(uint8_t DataByte);
-
-
-
-
 # 27 "ES_PostList.c"
 static bool PostToList( PostFunc_t *const*FuncList, uint8_t ListSize, ES_Event NewEvent);
-
-# 34
-static PostFunc_t * const DistList00[] = {PostPatternControlService, PostSPI32ControlService };
-
-# 78
-bool ES_PostList00( ES_Event NewEvent) {
-return PostToList( DistList00, (sizeof(DistList00)/sizeof(DistList00[0])), NewEvent);
-}
-
-# 142
-static bool PostToList( PostFunc_t *const*List, uint8_t ListSize, ES_Event NewEvent){
-uint8_t i;
-
-for ( i=0; i< ListSize; i++) {
-if ( List[i](NewEvent) != 1 )
-break;
-}
-if ( i != ListSize )
-return (0);
-else
-return(1);
-}
 

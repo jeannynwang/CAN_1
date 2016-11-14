@@ -17949,7 +17949,7 @@ ReturnEvent.EventType = ES_NO_EVENT;
 
 # 137
 if (ThisEvent.EventType == ES_TIMEOUT) {
-if (ThisEvent.EventParam == 2) {
+if (ThisEvent.EventParam == TOGGLE_TIMER) {
 
 # 145
 XmitData(0xAA);

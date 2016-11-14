@@ -94,7 +94,7 @@ typedef uint16_t uintptr_t;
 # 12 "/Applications/microchip/xc8/v1.38/include/stdbool.h"
 typedef unsigned char bool;
 
-# 252 "ES_Configure.h"
+# 258 "ES_Configure.h"
 typedef enum {
 ES_NO_EVENT = 0,
 ES_ERROR,
@@ -102,12 +102,7 @@ ES_INIT,
 ES_TIMEOUT,
 ES_SHORT_TIMEOUT,
 
-PATTERN_START,
-PATTERN_END,
-PATTERN_PAUSE,
-PATTERN_UNPAUSE,
-
-SPI32_TRANSMIT
+# 271
 } ES_EventTyp_t;
 
 # 4 "/Applications/microchip/xc8/v1.38/include/__size_t.h"
@@ -17941,7 +17936,7 @@ ES_Event ReturnEvent;
 
 if (ThisEvent.EventType == ES_INIT) {
 InitCanHardware();
-XmitData(0xAA);
+
 }
 ReturnEvent.EventType = ES_NO_EVENT;
 return ReturnEvent;
@@ -17955,25 +17950,32 @@ TXB0SIDL = 0b01100000;
 TXB0SIDH = 0b00100100;
 
 TXB0DLC = 0b00000001;
+TXB0CONbits.TXPRI0 = 1;
+TXB0CONbits.TXPRI1 = 1;
 
 TXB0CONbits.TXREQ = 1;
+
 }
 
 void CanXmitResponse(void)
 {
-LATA1 = 1;
-TXB0CONbits.TXREQ = 0;
-ES_Timer_InitTimer(2, 50);
+
+
 }
 
 void CanRCVResponse(void)
 {
+if (LATA1 == 1) {
+LATA1 = 0;
+} else if (LATA1 == 0) {
+LATA1 = 1;
+}
 if (RXB0CONbits.RXFUL == 1) {
 RXB0CONbits.RXFUL = 0;
 }
 }
 
-# 173
+# 180
 static void InitCanHardware(void)
 {
 
@@ -17985,7 +17987,6 @@ TRISBbits.TRISB3 = 1;
 
 CANCON = 0x80;
 
-CANSTAT = 0x80;
 while (CANSTATbits.OPMODE2 != 1);
 
 
@@ -18003,29 +18004,31 @@ BRGCON1bits.BRP1 = 1;
 
 
 
-RXB0CON |= 0b01100000;
 
+RXB0CONbits.RXM0 = 1;
+RXB0CONbits.RXM1 = 1;
 RXF0SIDH = 0x20;
 RXF0SIDL = 0x60;
 RXM0SIDH = 0x00;
 RXM0SIDL = 0x00;
 
+TXB0IE = 1;
+RXB0IE = 1;
+PIE3 = 0xff;
+
+
+
+TXB0IF = 0;
+RXB0IF = 0;
+TXB0CONbits.TXREQ = 0;
+RXB0CONbits.RXFUL = 0;
+
+
 
 
 ECANCON = 0x00;
 CANCON = 0x00;
-CANSTAT = 0x40;
 
-
-
-
-TXB0CONbits.TXREQ = 0;
-TXB0IF = 0;
-RXB0IF = 0;
-RXB0CONbits.RXFUL = 0;
-
-TXB0IE = 1;
-RXB0IE = 1;
-PIE3 = 0xff;
+while (CANSTATbits.OPMODE2 != 0);
 }
 
