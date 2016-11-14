@@ -1,0 +1,146 @@
+
+# 1 "ES_CheckEvents.c"
+
+# 258 "ES_Configure.h"
+typedef enum {
+ES_NO_EVENT = 0,
+ES_ERROR,
+ES_INIT,
+ES_TIMEOUT,
+ES_SHORT_TIMEOUT,
+
+# 271
+} ES_EventTyp_t;
+
+# 13 "/Applications/microchip/xc8/v1.38/include/stdint.h"
+typedef signed char int8_t;
+
+# 20
+typedef signed int int16_t;
+
+# 28
+typedef signed short long int int24_t;
+
+# 36
+typedef signed long int int32_t;
+
+# 43
+typedef unsigned char uint8_t;
+
+# 49
+typedef unsigned int uint16_t;
+
+# 56
+typedef unsigned short long int uint24_t;
+
+# 63
+typedef unsigned long int uint32_t;
+
+# 71
+typedef signed char int_least8_t;
+
+# 78
+typedef signed int int_least16_t;
+
+# 90
+typedef signed short long int int_least24_t;
+
+# 98
+typedef signed long int int_least32_t;
+
+# 105
+typedef unsigned char uint_least8_t;
+
+# 111
+typedef unsigned int uint_least16_t;
+
+# 121
+typedef unsigned short long int uint_least24_t;
+
+# 128
+typedef unsigned long int uint_least32_t;
+
+# 137
+typedef signed char int_fast8_t;
+
+# 144
+typedef signed int int_fast16_t;
+
+# 156
+typedef signed short long int int_fast24_t;
+
+# 164
+typedef signed long int int_fast32_t;
+
+# 171
+typedef unsigned char uint_fast8_t;
+
+# 177
+typedef unsigned int uint_fast16_t;
+
+# 187
+typedef unsigned short long int uint_fast24_t;
+
+# 194
+typedef unsigned long int uint_fast32_t;
+
+# 200
+typedef int32_t intmax_t;
+
+
+
+
+typedef uint32_t uintmax_t;
+
+
+
+
+typedef int16_t intptr_t;
+
+
+
+
+typedef uint16_t uintptr_t;
+
+# 12 "/Applications/microchip/xc8/v1.38/include/stdbool.h"
+typedef unsigned char bool;
+
+# 24 "ES_Events.h"
+typedef struct ES_Event_t {
+ES_EventTyp_t EventType;
+uint16_t EventParam;
+}ES_Event;
+
+# 22 "ES_CheckEvents.h"
+typedef bool CheckFunc( void );
+
+typedef CheckFunc (*pCheckFunc);
+
+bool ES_CheckUserEvents( void );
+
+# 23 "EventCheckers.h"
+bool Check4Keystroke(void);
+
+
+
+
+
+
+
+static CheckFunc * const ES_EventList[]={Check4Keystroke };
+
+# 46 "ES_CheckEvents.c"
+bool ES_CheckUserEvents( void )
+{
+uint8_t i;
+
+for ( i=0; i< (sizeof(ES_EventList)/sizeof(ES_EventList[0])); i++) {
+if ( ES_EventList[i]() == 1 )
+break;
+}
+if ( i == (sizeof(ES_EventList)/sizeof(ES_EventList[0])) )
+return (0);
+else
+return(1);
+}
+

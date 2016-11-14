@@ -1,0 +1,4 @@
+Error[1027] C:\Users\Luke\Documents\Github_Repositories\218D_VW\DotStar_Pattern_Control\ES_Port.h 27 : unable to locate 'pic18f2480.h'
+Error[1027] C:\Users\Luke\Documents\Github_Repositories\218D_VW\DotStar_Pattern_Control\ES_Port.h 28 : unable to locate 'stdint.h'
+Error[1027] C:\Users\Luke\Documents\Github_Repositories\218D_VW\DotStar_Pattern_Control\ES_Types.h 25 : unable to locate 'stdint.h'
+Error[1027] C:\Users\Luke\Documents\Github_Repositories\218D_VW\DotStar_Pattern_Control\ES_Types.h 34 : unable to locate 'stdbool.h'

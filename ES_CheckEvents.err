@@ -1,0 +1,4 @@
+Error[1027] C:\Users\Luke\Documents\Github_Repositories\218D_VW\DotStar_Pattern_Control\ES_Types.h 25 : unable to locate 'stdint.h'
+Error[1027] C:\Users\Luke\Documents\Github_Repositories\218D_VW\DotStar_Pattern_Control\ES_Types.h 34 : unable to locate 'stdbool.h'
+Error[1027] C:\Users\Luke\Documents\Github_Repositories\218D_VW\DotStar_Pattern_Control\EventCheckers.h 19 : unable to locate 'stdint.h'
+Error[1027] C:\Users\Luke\Documents\Github_Repositories\218D_VW\DotStar_Pattern_Control\EventCheckers.h 20 : unable to locate 'stdbool.h'

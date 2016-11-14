@@ -1,0 +1,112 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"23 EventCheckers.h
+[v _Check4Keystroke `(uc ~T0 @X0 0 ef ]
+[; ;ES_Configure.h: 258: typedef enum {
+[; ;ES_Configure.h: 259: ES_NO_EVENT = 0,
+[; ;ES_Configure.h: 260: ES_ERROR,
+[; ;ES_Configure.h: 261: ES_INIT,
+[; ;ES_Configure.h: 262: ES_TIMEOUT,
+[; ;ES_Configure.h: 263: ES_SHORT_TIMEOUT,
+[; ;ES_Configure.h: 271: } ES_EventTyp_t;
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef signed short long int int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 43: typedef unsigned char uint8_t;
+[; ;stdint.h: 49: typedef unsigned int uint16_t;
+[; ;stdint.h: 56: typedef unsigned short long int uint24_t;
+[; ;stdint.h: 63: typedef unsigned long int uint32_t;
+[; ;stdint.h: 71: typedef signed char int_least8_t;
+[; ;stdint.h: 78: typedef signed int int_least16_t;
+[; ;stdint.h: 90: typedef signed short long int int_least24_t;
+[; ;stdint.h: 98: typedef signed long int int_least32_t;
+[; ;stdint.h: 105: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 111: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 121: typedef unsigned short long int uint_least24_t;
+[; ;stdint.h: 128: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 137: typedef signed char int_fast8_t;
+[; ;stdint.h: 144: typedef signed int int_fast16_t;
+[; ;stdint.h: 156: typedef signed short long int int_fast24_t;
+[; ;stdint.h: 164: typedef signed long int int_fast32_t;
+[; ;stdint.h: 171: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 177: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 187: typedef unsigned short long int uint_fast24_t;
+[; ;stdint.h: 194: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 200: typedef int32_t intmax_t;
+[; ;stdint.h: 205: typedef uint32_t uintmax_t;
+[; ;stdint.h: 210: typedef int16_t intptr_t;
+[; ;stdint.h: 215: typedef uint16_t uintptr_t;
+[; ;stdbool.h: 12: typedef unsigned char bool;
+[; ;ES_Events.h: 24: typedef struct ES_Event_t {
+[; ;ES_Events.h: 25: ES_EventTyp_t EventType;
+[; ;ES_Events.h: 26: uint16_t EventParam;
+[; ;ES_Events.h: 27: }ES_Event;
+[; ;ES_CheckEvents.h: 22: typedef bool CheckFunc( void );
+[; ;ES_CheckEvents.h: 24: typedef CheckFunc (*pCheckFunc);
+[; ;ES_CheckEvents.h: 26: bool ES_CheckUserEvents( void );
+[; ;EventCheckers.h: 23: bool Check4Keystroke(void);
+[v F51 `(uc ~T0 @X0 1 tf ]
+[v F52 `*F51 ~T0 @X0 1 t ]
+"31 EventCheckers.h
+[v _ES_EventList `C*F51 ~T0 @X0 -> 0 `x s ]
+[i _ES_EventList
+:U ..
+&U _Check4Keystroke
+..
+]
+[; ;EventCheckers.h: 31: static CheckFunc * const ES_EventList[]={Check4Keystroke };
+"46 ES_CheckEvents.c
+[v _ES_CheckUserEvents `(uc ~T0 @X0 1 ef ]
+"47
+{
+[; ;ES_CheckEvents.c: 46: bool ES_CheckUserEvents( void )
+[; ;ES_CheckEvents.c: 47: {
+[e :U _ES_CheckUserEvents ]
+[f ]
+"48
+[v _i `uc ~T0 @X0 1 a ]
+[; ;ES_CheckEvents.c: 48: uint8_t i;
+[; ;ES_CheckEvents.c: 50: for ( i=0; i< (sizeof(ES_EventList)/sizeof(ES_EventList[0])); i++) {
+"50
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `ui / -> # _ES_EventList `ui -> # *U + &U _ES_EventList * -> -> -> 0 `i `ui `ux -> -> # *U &U _ES_EventList `ui `ux `ui 3  ]
+[e $U 4  ]
+[e :U 3 ]
+{
+[; ;ES_CheckEvents.c: 51: if ( ES_EventList[i]() == 1 )
+"51
+[e $ ! == -> ( *U *U + &U _ES_EventList * -> _i `ux -> -> # *U &U _ES_EventList `ui `ux ..  `i -> 1 `i 6  ]
+[; ;ES_CheckEvents.c: 52: break;
+"52
+[e $U 4  ]
+[e :U 6 ]
+"53
+}
+"50
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `ui / -> # _ES_EventList `ui -> # *U + &U _ES_EventList * -> -> -> 0 `i `ui `ux -> -> # *U &U _ES_EventList `ui `ux `ui 3  ]
+[e :U 4 ]
+"53
+}
+[; ;ES_CheckEvents.c: 53: }
+[; ;ES_CheckEvents.c: 54: if ( i == (sizeof(ES_EventList)/sizeof(ES_EventList[0])) )
+"54
+[e $ ! == -> _i `ui / -> # _ES_EventList `ui -> # *U + &U _ES_EventList * -> -> -> 0 `i `ui `ux -> -> # *U &U _ES_EventList `ui `ux `ui 7  ]
+[; ;ES_CheckEvents.c: 55: return (0);
+"55
+[e ) -> -> 0 `i `uc ]
+[e $UE 2  ]
+[e $U 8  ]
+"56
+[e :U 7 ]
+[; ;ES_CheckEvents.c: 56: else
+[; ;ES_CheckEvents.c: 57: return(1);
+"57
+[e ) -> -> 1 `i `uc ]
+[e $UE 2  ]
+[e :U 8 ]
+[; ;ES_CheckEvents.c: 58: }
+"58
+[e :UE 2 ]
+}
