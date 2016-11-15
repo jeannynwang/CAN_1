@@ -170,14 +170,14 @@ void XmitData(uint8_t DataByte) {
 void CanXmitResponse(void) 
 {
     TXB0CONbits.TXREQ = 0;
-//    ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);
+    ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);
 }
 
 void CanRCVResponse(void)
 {
     if (RXB0CONbits.RXFUL == 1) {
         RXB0CONbits.RXFUL = 0;
-        ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);
+//        ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);
     }
 }
 
@@ -201,17 +201,40 @@ static void InitCanHardware(void)
    
 	// 4. Set up the Baud Rate registers.
 	// page 317 (125kb/sec))
-    BRGCON1bits.SJW0 = 1; // Synchronization jump width time = 2 x TQ
-    BRGCON2bits.SAM = 1; // Bus line is sampled three times prior to the sample point
-    BRGCON2bits.SEG2PHTS = 1; // Seg2 length freely programmable
-    BRGCON2bits.PRSEG1 = 1; // Propagation time = 3 x TQ
-    BRGCON2bits.SEG1PH0 = 1; // Phase Segment 1 time = 8 x TQ
-    BRGCON2bits.SEG1PH1 = 1; 
-    BRGCON2bits.SEG1PH2 = 1; 
-    BRGCON3bits.SEG2PH0 = 1; // Phase Segment 2 time = 4 x TQ
-    BRGCON3bits.SEG2PH1 = 1;
-    BRGCON1bits.BRP0 = 1; // TQ = (2 x 4)/FOSC > 500 ns
-    BRGCON1bits.BRP1 = 1; 
+    
+//    BRGCON1bits.SJW0 = 1; // Synchronization jump width time = 2 x TQ
+//    BRGCON2bits.SAM = 1; // Bus line is sampled three times prior to the sample point
+//    BRGCON2bits.SEG2PHTS = 1; // Seg2 length freely programmable
+//    BRGCON2bits.PRSEG1 = 1; // Propagation time = 3 x TQ
+//    BRGCON2bits.SEG1PH0 = 1; // Phase Segment 1 time = 8 x TQ
+//    BRGCON2bits.SEG1PH1 = 1; 
+//    BRGCON2bits.SEG1PH2 = 1; 
+//    BRGCON3bits.SEG2PH0 = 1; // Phase Segment 2 time = 4 x TQ
+//    BRGCON3bits.SEG2PH1 = 1;
+//    BRGCON1bits.BRP0 = 1; // TQ = (2 x 4)/FOSC > 500 ns
+//    BRGCON1bits.BRP1 = 1;
+    
+    //114 kbs baud rate
+    BRGCON2bits.SEG2PHTS = 1; //freely programmable SEG2PH
+
+    BRGCON1bits.BRP0 = 0;
+    BRGCON1bits.BRP1 = 1;
+    BRGCON1bits.BRP2 = 1;
+    BRGCON1bits.BRP3 = 0;
+    
+    BRGCON2bits.PRSEG0 = 0; //1 TQ
+    BRGCON2bits.PRSEG1 = 0;
+    BRGCON2bits.PRSEG2 = 0;
+    
+    BRGCON2bits.SEG1PH0 = 0; //1 TQ
+    BRGCON2bits.SEG1PH1 = 0;
+    BRGCON2bits.SEG1PH2 = 0;
+    
+    BRGCON3bits.SEG2PH0 = 1; //2 TQ
+    BRGCON3bits.SEG2PH1 = 0;
+    BRGCON3bits.SEG2PH2 = 0;
+    
+    BRGCON1bits.SJW0 = 0; //1 TQ
     
 	// 5. Set up the Filter and Mask registers.
     //Set up Filter to receive everything for now by making mask all 0's

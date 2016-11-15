@@ -52,7 +52,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TXB0SIDH `Vuc ~T0 @X0 0 e@3905 ]
 "23683
 [v _TXB0DLC `Vuc ~T0 @X0 0 e@3909 ]
-"25931
+"173 Can_XmitService.c
+[c E15468 -1 1 0 0 .. ]
+[n E15468 . ES_Timer_ERR ES_Timer_ACTIVE ES_Timer_OK ES_Timer_NOT_ACTIVE  ]
+"46 ES_Timers.h
+[v _ES_Timer_InitTimer `(E15468 ~T0 @X0 0 ef2`uc`ui ]
+"25931 /Applications/microchip/xc8/v1.38/include/pic18f2480.h
 [s S1640 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S1640 . FILHIT0 JTOFF_FILHIT1 RXB0DBEN_FILHIT2 RXRTRRO_FILHIT3 FILHIT4 RXM0_RTRRO RXM1 RXFUL ]
 "25941
@@ -99,12 +104,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1639 . . . . . . . . . . . . . . . ]
 "26001
 [v _RXB0CONbits `VS1639 ~T0 @X0 0 e@3936 ]
-"180 Can_XmitService.c
-[c E15468 -1 1 0 0 .. ]
-[n E15468 . ES_Timer_ERR ES_Timer_ACTIVE ES_Timer_OK ES_Timer_NOT_ACTIVE  ]
-"46 ES_Timers.h
-[v _ES_Timer_InitTimer `(E15468 ~T0 @X0 0 ef2`uc`ui ]
-"35834 /Applications/microchip/xc8/v1.38/include/pic18f2480.h
+"35834
 [v _LATA0 `Vb ~T0 @X0 0 e@31816 ]
 "35838
 [v _LATA2 `Vb ~T0 @X0 0 e@31818 ]
@@ -124,14 +124,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1719 . . . . ]
 "27303
 [v _CANSTATbits `VS1719 ~T0 @X0 0 e@3950 ]
-"27491
-[s S1728 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1728 . BRP0 BRP1 BRP2 BRP3 BRP4 BRP5 SJW0 SJW1 ]
-"27490
-[u S1727 `S1728 1 ]
-[n S1727 . . ]
-"27502
-[v _BRGCON1bits `VS1727 ~T0 @X0 0 e@3952 ]
 "27552
 [s S1730 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S1730 . PRSEG0 PRSEG1 PRSEG2 SEG1PH0 SEG1PH1 SEG1PH2 SAM SEG2PHT ]
@@ -143,6 +135,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1729 . . . ]
 "27567
 [v _BRGCON2bits `VS1729 ~T0 @X0 0 e@3953 ]
+"27491
+[s S1728 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1728 . BRP0 BRP1 BRP2 BRP3 BRP4 BRP5 SJW0 SJW1 ]
+"27490
+[u S1727 `S1728 1 ]
+[n S1727 . . ]
+"27502
+[v _BRGCON1bits `VS1727 ~T0 @X0 0 e@3952 ]
 "27622
 [s S1733 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S1733 . SEG2PH0 SEG2PH1 SEG2PH2 . WAKFIL WAKDIS ]
@@ -14505,6 +14505,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Can_XmitService.c: 172: TXB0CONbits.TXREQ = 0;
 "172
 [e = . . _TXB0CONbits 0 3 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 173: ES_Timer_InitTimer(0, 50);
+"173
+[e ( _ES_Timer_InitTimer (2 , -> -> 0 `i `uc -> -> 50 `i `ui ]
 [; ;Can_XmitService.c: 174: }
 "174
 [e :UE 2051 ]
@@ -14524,9 +14527,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Can_XmitService.c: 179: RXB0CONbits.RXFUL = 0;
 "179
 [e = . . _RXB0CONbits 0 7 -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 180: ES_Timer_InitTimer(0, 50);
-"180
-[e ( _ES_Timer_InitTimer (2 , -> -> 0 `i `uc -> -> 50 `i `ui ]
 "181
 }
 [e :U 2053 ]
@@ -14579,195 +14579,207 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 2057 ]
 [e $ != -> . . _CANSTATbits 0 7 `i -> 1 `i 2058  ]
 [e :U 2059 ]
-[; ;Can_XmitService.c: 204: BRGCON1bits.SJW0 = 1;
-"204
-[e = . . _BRGCON1bits 0 6 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 205: BRGCON2bits.SAM = 1;
-"205
-[e = . . _BRGCON2bits 0 6 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 206: BRGCON2bits.SEG2PHTS = 1;
-"206
+[; ;Can_XmitService.c: 218: BRGCON2bits.SEG2PHTS = 1;
+"218
 [e = . . _BRGCON2bits 1 1 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 207: BRGCON2bits.PRSEG1 = 1;
-"207
-[e = . . _BRGCON2bits 0 1 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 208: BRGCON2bits.SEG1PH0 = 1;
-"208
-[e = . . _BRGCON2bits 0 3 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 209: BRGCON2bits.SEG1PH1 = 1;
-"209
-[e = . . _BRGCON2bits 0 4 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 210: BRGCON2bits.SEG1PH2 = 1;
-"210
-[e = . . _BRGCON2bits 0 5 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 211: BRGCON3bits.SEG2PH0 = 1;
-"211
-[e = . . _BRGCON3bits 0 0 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 212: BRGCON3bits.SEG2PH1 = 1;
-"212
-[e = . . _BRGCON3bits 0 1 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 213: BRGCON1bits.BRP0 = 1;
-"213
-[e = . . _BRGCON1bits 0 0 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 214: BRGCON1bits.BRP1 = 1;
-"214
-[e = . . _BRGCON1bits 0 1 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 219: RXB0CONbits.RXM0 = 1;
-"219
-[e = . . _RXB0CONbits 1 5 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 220: RXB0CONbits.RXM1 = 1;
+[; ;Can_XmitService.c: 220: BRGCON1bits.BRP0 = 0;
 "220
-[e = . . _RXB0CONbits 0 6 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 221: RXB0CONbits.RXB0DBEN = 0;
+[e = . . _BRGCON1bits 0 0 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 221: BRGCON1bits.BRP1 = 1;
 "221
-[e = . . _RXB0CONbits 1 2 -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 222: RXB0CONbits.FILHIT0 = 0;
+[e = . . _BRGCON1bits 0 1 -> -> 1 `i `uc ]
+[; ;Can_XmitService.c: 222: BRGCON1bits.BRP2 = 1;
 "222
-[e = . . _RXB0CONbits 0 0 -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 224: RXF0SIDH = 0x00;
-"224
-[e = _RXF0SIDH -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 225: RXF0SIDL = 0b00100000;
+[e = . . _BRGCON1bits 0 2 -> -> 1 `i `uc ]
+[; ;Can_XmitService.c: 223: BRGCON1bits.BRP3 = 0;
+"223
+[e = . . _BRGCON1bits 0 3 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 225: BRGCON2bits.PRSEG0 = 0;
 "225
-[e = _RXF0SIDL -> -> 32 `i `uc ]
-[; ;Can_XmitService.c: 226: RXM0SIDH = 0x00;
+[e = . . _BRGCON2bits 0 0 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 226: BRGCON2bits.PRSEG1 = 0;
 "226
-[e = _RXM0SIDH -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 227: RXM0SIDL = 0x00;
+[e = . . _BRGCON2bits 0 1 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 227: BRGCON2bits.PRSEG2 = 0;
 "227
-[e = _RXM0SIDL -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 231: ECANCON = 0x00;
+[e = . . _BRGCON2bits 0 2 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 229: BRGCON2bits.SEG1PH0 = 0;
+"229
+[e = . . _BRGCON2bits 0 3 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 230: BRGCON2bits.SEG1PH1 = 0;
+"230
+[e = . . _BRGCON2bits 0 4 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 231: BRGCON2bits.SEG1PH2 = 0;
 "231
-[e = _ECANCON -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 232: CANCON = 0x00;
-"232
-[e = _CANCON -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 234: while (CANSTATbits.OPMODE2 != 0);
+[e = . . _BRGCON2bits 0 5 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 233: BRGCON3bits.SEG2PH0 = 1;
+"233
+[e = . . _BRGCON3bits 0 0 -> -> 1 `i `uc ]
+[; ;Can_XmitService.c: 234: BRGCON3bits.SEG2PH1 = 0;
 "234
+[e = . . _BRGCON3bits 0 1 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 235: BRGCON3bits.SEG2PH2 = 0;
+"235
+[e = . . _BRGCON3bits 0 2 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 237: BRGCON1bits.SJW0 = 0;
+"237
+[e = . . _BRGCON1bits 0 6 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 242: RXB0CONbits.RXM0 = 1;
+"242
+[e = . . _RXB0CONbits 1 5 -> -> 1 `i `uc ]
+[; ;Can_XmitService.c: 243: RXB0CONbits.RXM1 = 1;
+"243
+[e = . . _RXB0CONbits 0 6 -> -> 1 `i `uc ]
+[; ;Can_XmitService.c: 244: RXB0CONbits.RXB0DBEN = 0;
+"244
+[e = . . _RXB0CONbits 1 2 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 245: RXB0CONbits.FILHIT0 = 0;
+"245
+[e = . . _RXB0CONbits 0 0 -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 247: RXF0SIDH = 0x00;
+"247
+[e = _RXF0SIDH -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 248: RXF0SIDL = 0b00100000;
+"248
+[e = _RXF0SIDL -> -> 32 `i `uc ]
+[; ;Can_XmitService.c: 249: RXM0SIDH = 0x00;
+"249
+[e = _RXM0SIDH -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 250: RXM0SIDL = 0x00;
+"250
+[e = _RXM0SIDL -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 254: ECANCON = 0x00;
+"254
+[e = _ECANCON -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 255: CANCON = 0x00;
+"255
+[e = _CANCON -> -> 0 `i `uc ]
+[; ;Can_XmitService.c: 257: while (CANSTATbits.OPMODE2 != 0);
+"257
 [e $U 2060  ]
 [e :U 2061 ]
 [e :U 2060 ]
 [e $ != -> . . _CANSTATbits 0 7 `i -> 0 `i 2061  ]
 [e :U 2062 ]
-[; ;Can_XmitService.c: 237: TXB0IE = 1;
-"237
+[; ;Can_XmitService.c: 260: TXB0IE = 1;
+"260
 [e = _TXB0IE -> -> 1 `i `b ]
-[; ;Can_XmitService.c: 238: RXB0IE = 1;
-"238
+[; ;Can_XmitService.c: 261: RXB0IE = 1;
+"261
 [e = _RXB0IE -> -> 1 `i `b ]
-[; ;Can_XmitService.c: 239: IRXIE = 1;
-"239
+[; ;Can_XmitService.c: 262: IRXIE = 1;
+"262
 [e = _IRXIE -> -> 1 `i `b ]
-[; ;Can_XmitService.c: 243: TXB0IF = 0;
-"243
+[; ;Can_XmitService.c: 266: TXB0IF = 0;
+"266
 [e = _TXB0IF -> -> 0 `i `b ]
-[; ;Can_XmitService.c: 244: RXB0IF = 0;
-"244
+[; ;Can_XmitService.c: 267: RXB0IF = 0;
+"267
 [e = _RXB0IF -> -> 0 `i `b ]
-[; ;Can_XmitService.c: 245: IRXIF = 0;
-"245
+[; ;Can_XmitService.c: 268: IRXIF = 0;
+"268
 [e = _IRXIF -> -> 0 `i `b ]
-[; ;Can_XmitService.c: 246: TXB0CONbits.TXREQ = 0;
-"246
+[; ;Can_XmitService.c: 269: TXB0CONbits.TXREQ = 0;
+"269
 [e = . . _TXB0CONbits 0 3 -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 247: RXB0CONbits.RXFUL = 0;
-"247
+[; ;Can_XmitService.c: 270: RXB0CONbits.RXFUL = 0;
+"270
 [e = . . _RXB0CONbits 0 7 -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 248: }
-"248
+[; ;Can_XmitService.c: 271: }
+"271
 [e :UE 2056 ]
 }
-"250
+"273
 [v _InitPins `(v ~T0 @X0 1 sf ]
-"251
+"274
 {
-[; ;Can_XmitService.c: 250: static void InitPins(void)
-[; ;Can_XmitService.c: 251: {
+[; ;Can_XmitService.c: 273: static void InitPins(void)
+[; ;Can_XmitService.c: 274: {
 [e :U _InitPins ]
 [f ]
-[; ;Can_XmitService.c: 253: PORTB = 0x00;
-"253
+[; ;Can_XmitService.c: 276: PORTB = 0x00;
+"276
 [e = _PORTB -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 254: LATB = 0x00;
-"254
+[; ;Can_XmitService.c: 277: LATB = 0x00;
+"277
 [e = _LATB -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 255: PORTA = 0x00;
-"255
+[; ;Can_XmitService.c: 278: PORTA = 0x00;
+"278
 [e = _PORTA -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 256: LATA = 0x00;
-"256
+[; ;Can_XmitService.c: 279: LATA = 0x00;
+"279
 [e = _LATA -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 257: ADCON1 = 0x0F;
-"257
+[; ;Can_XmitService.c: 280: ADCON1 = 0x0F;
+"280
 [e = _ADCON1 -> -> 15 `i `uc ]
-[; ;Can_XmitService.c: 258: TRISAbits.TRISA0 = 0;
-"258
+[; ;Can_XmitService.c: 281: TRISAbits.TRISA0 = 0;
+"281
 [e = . . _TRISAbits 0 0 -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 259: TRISAbits.TRISA1 = 0;
-"259
+[; ;Can_XmitService.c: 282: TRISAbits.TRISA1 = 0;
+"282
 [e = . . _TRISAbits 0 1 -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 260: TRISAbits.TRISA2 = 0;
-"260
+[; ;Can_XmitService.c: 283: TRISAbits.TRISA2 = 0;
+"283
 [e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 261: TRISAbits.TRISA3 = 0;
-"261
+[; ;Can_XmitService.c: 284: TRISAbits.TRISA3 = 0;
+"284
 [e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 262: TRISBbits.TRISB2 = 0;
-"262
+[; ;Can_XmitService.c: 285: TRISBbits.TRISB2 = 0;
+"285
 [e = . . _TRISBbits 0 2 -> -> 0 `i `uc ]
-[; ;Can_XmitService.c: 263: TRISBbits.TRISB3 = 1;
-"263
+[; ;Can_XmitService.c: 286: TRISBbits.TRISB3 = 1;
+"286
 [e = . . _TRISBbits 0 3 -> -> 1 `i `uc ]
-[; ;Can_XmitService.c: 264: LATA1 = 0;
-"264
+[; ;Can_XmitService.c: 287: LATA1 = 0;
+"287
 [e = _LATA1 -> -> 0 `i `b ]
-[; ;Can_XmitService.c: 265: LATA0 = 0;
-"265
+[; ;Can_XmitService.c: 288: LATA0 = 0;
+"288
 [e = _LATA0 -> -> 0 `i `b ]
-[; ;Can_XmitService.c: 266: LATA2 = 0;
-"266
+[; ;Can_XmitService.c: 289: LATA2 = 0;
+"289
 [e = _LATA2 -> -> 0 `i `b ]
-[; ;Can_XmitService.c: 267: LATA3 = 1;
-"267
+[; ;Can_XmitService.c: 290: LATA3 = 1;
+"290
 [e = _LATA3 -> -> 1 `i `b ]
-[; ;Can_XmitService.c: 268: LATB2 = 0;
-"268
+[; ;Can_XmitService.c: 291: LATB2 = 0;
+"291
 [e = _LATB2 -> -> 0 `i `b ]
-[; ;Can_XmitService.c: 269: }
-"269
+[; ;Can_XmitService.c: 292: }
+"292
 [e :UE 2063 ]
 }
-"271
+"294
 [v _ToggleDebugLED `(v ~T0 @X0 1 sf ]
-"272
+"295
 {
-[; ;Can_XmitService.c: 271: static void ToggleDebugLED(void)
-[; ;Can_XmitService.c: 272: {
+[; ;Can_XmitService.c: 294: static void ToggleDebugLED(void)
+[; ;Can_XmitService.c: 295: {
 [e :U _ToggleDebugLED ]
 [f ]
-[; ;Can_XmitService.c: 273: if (LATA1 == 1) {
-"273
+[; ;Can_XmitService.c: 296: if (LATA1 == 1) {
+"296
 [e $ ! == -> _LATA1 `i -> 1 `i 2065  ]
 {
-[; ;Can_XmitService.c: 274: LATA1 = 0;
-"274
+[; ;Can_XmitService.c: 297: LATA1 = 0;
+"297
 [e = _LATA1 -> -> 0 `i `b ]
-"275
+"298
 }
-[; ;Can_XmitService.c: 275: } else if (LATA1 == 0) {
+[; ;Can_XmitService.c: 298: } else if (LATA1 == 0) {
 [e $U 2066  ]
 [e :U 2065 ]
 [e $ ! == -> _LATA1 `i -> 0 `i 2067  ]
 {
-[; ;Can_XmitService.c: 276: LATA1 = 1;
-"276
+[; ;Can_XmitService.c: 299: LATA1 = 1;
+"299
 [e = _LATA1 -> -> 1 `i `b ]
-"277
+"300
 }
 [e :U 2067 ]
-"278
+"301
 [e :U 2066 ]
-[; ;Can_XmitService.c: 277: }
-[; ;Can_XmitService.c: 278: }
+[; ;Can_XmitService.c: 300: }
+[; ;Can_XmitService.c: 301: }
 [e :UE 2064 ]
 }

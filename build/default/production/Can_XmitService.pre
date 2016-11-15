@@ -17971,14 +17971,14 @@ TXB0CONbits.TXREQ = 1;
 void CanXmitResponse(void)
 {
 TXB0CONbits.TXREQ = 0;
-
+ES_Timer_InitTimer(0, 50);
 }
 
 void CanRCVResponse(void)
 {
 if (RXB0CONbits.RXFUL == 1) {
 RXB0CONbits.RXFUL = 0;
-ES_Timer_InitTimer(0, 50);
+
 }
 }
 
@@ -17999,19 +17999,27 @@ CANCON = 0x80;
 
 while (CANSTATbits.OPMODE2 != 1);
 
-
-
-BRGCON1bits.SJW0 = 1;
-BRGCON2bits.SAM = 1;
+# 218
 BRGCON2bits.SEG2PHTS = 1;
-BRGCON2bits.PRSEG1 = 1;
-BRGCON2bits.SEG1PH0 = 1;
-BRGCON2bits.SEG1PH1 = 1;
-BRGCON2bits.SEG1PH2 = 1;
-BRGCON3bits.SEG2PH0 = 1;
-BRGCON3bits.SEG2PH1 = 1;
-BRGCON1bits.BRP0 = 1;
+
+BRGCON1bits.BRP0 = 0;
 BRGCON1bits.BRP1 = 1;
+BRGCON1bits.BRP2 = 1;
+BRGCON1bits.BRP3 = 0;
+
+BRGCON2bits.PRSEG0 = 0;
+BRGCON2bits.PRSEG1 = 0;
+BRGCON2bits.PRSEG2 = 0;
+
+BRGCON2bits.SEG1PH0 = 0;
+BRGCON2bits.SEG1PH1 = 0;
+BRGCON2bits.SEG1PH2 = 0;
+
+BRGCON3bits.SEG2PH0 = 1;
+BRGCON3bits.SEG2PH1 = 0;
+BRGCON3bits.SEG2PH2 = 0;
+
+BRGCON1bits.SJW0 = 0;
 
 
 
