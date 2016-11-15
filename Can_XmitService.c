@@ -139,12 +139,12 @@ ES_Event RunCan_XmitService( ES_Event ThisEvent )
   if (ThisEvent.EventType == ES_INIT) {
      InitPins();
      InitCanHardware();
-     XmitData(0xAA);
+     XmitData(0xb7);
   } 
   if (ThisEvent.EventType == ES_TIMEOUT) {
         if (ThisEvent.EventParam == CAN_DEBUG_TIMER) {
             ToggleDebugLED();
-            XmitData(0xAA);
+            XmitData(0xb7);
         }
   }
   ReturnEvent.EventType = ES_NO_EVENT; // assume no errors
@@ -152,11 +152,12 @@ ES_Event RunCan_XmitService( ES_Event ThisEvent )
 }
 
 void XmitData(uint8_t DataByte) {
+    TXB0CONbits.TXREQ = 0;
     // For testing Can transmit
     TXB0D0 = DataByte;
     // Load message identifier
-    TXB0SIDL = 0b01100000;
-    TXB0SIDH = 0b00100100;
+    TXB0SIDL = 0x00;
+    TXB0SIDH = 0b00100000; //only SID0 set
     // Set Data Length and RTR pg. 291
     TXB0DLC = 0b00000001; // 1 byte for now w/ RTR cleared
     TXB0CONbits.TXPRI0 = 1; //highest priority level
@@ -169,13 +170,22 @@ void XmitData(uint8_t DataByte) {
 void CanXmitResponse(void) 
 {
     TXB0CONbits.TXREQ = 0;
-    ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);
+//    ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);
 }
 
 void CanRCVResponse(void)
 {
     if (RXB0CONbits.RXFUL == 1) {
         RXB0CONbits.RXFUL = 0;
+        ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);
+    }
+}
+
+void CanErrorResponse(void) 
+{
+   LATA0 = 1;
+    if (TXB0CONbits.TXERR == 1) {
+        LATA2 = 1;
     }
 }
 /***************************************************************************
@@ -183,13 +193,12 @@ void CanRCVResponse(void)
  ***************************************************************************/
 static void InitCanHardware(void)
 {
-    
-    //CIOCONbits.ENDRHI = 1; //see age 320
 	// 2. Ensure that the ECAN module is in Configuration
 	// mode.
 	CANCON = 0x80; //Request Configuration Mode p. 282
 	// 3. Select ECAN Operational mode.
     while (CANSTATbits.OPMODE2 != 1);
+   
 	// 4. Set up the Baud Rate registers.
 	// page 317 (125kb/sec))
     BRGCON1bits.SJW0 = 1; // Synchronization jump width time = 2 x TQ
@@ -202,35 +211,40 @@ static void InitCanHardware(void)
     BRGCON3bits.SEG2PH0 = 1; // Phase Segment 2 time = 4 x TQ
     BRGCON3bits.SEG2PH1 = 1;
     BRGCON1bits.BRP0 = 1; // TQ = (2 x 4)/FOSC > 500 ns
-    BRGCON1bits.BRP1 = 1; // TQ = (2 x 4)/FOSC > 500 ns
+    BRGCON1bits.BRP1 = 1; 
     
 	// 5. Set up the Filter and Mask registers.
     //Set up Filter to receive everything for now by making mask all 0's
     //RXM0SIDH and L??? p. 309
-    RXB0CONbits.RXM0 = 1;
+    RXB0CONbits.RXM0 = 1; //Receive all messages (including those with errors); filter criteria is ignored 
     RXB0CONbits.RXM1 = 1;
-    RXF0SIDH = 0x20;
-    RXF0SIDL = 0x60;
-    RXM0SIDH = 0x00; //set mask as 0
-    RXM0SIDL = 0x00;
-
-    TXB0IE = 1; //enable interrupt
-    RXB0IE = 1; //enable interrupt
-    PIE3 = 0xff; //enable peripheral interrupt
-
-	// Clear TXREQ to get buffer ready for transmission
-    TXB0IF = 0; //clear flag
-    RXB0IF = 0;
-    TXB0CONbits.TXREQ = 0;
-    RXB0CONbits.RXFUL = 0; //make sure buffer is cleared
+    RXB0CONbits.RXB0DBEN = 0; //No Receive Buffer 0 overflow to Receive Buffer 1 
+    RXB0CONbits.FILHIT0 = 0; //Acceptance Filter 0 (RXF0)
     
+    RXF0SIDH = 0x00;
+    RXF0SIDL = 0b00100000; //only SID0 set
+    RXM0SIDH = 0x00; //set mask as 0 to accept everything for now
+    RXM0SIDL = 0x00;
     
     // 6. Set the ECAN module to normal mode or any
 	// other mode required by the application logic.
     ECANCON = 0x00; // Set in MODE 0 (should be default already)
 	CANCON = 0x00; //Return to normal request mode
-//    CANCON |= 0x40;
-    while (CANSTATbits.OPMODE2 != 0); // wait 
+    //CANCON =  0b01010000; //Loopback mode
+    while (CANSTATbits.OPMODE2 != 0); // wait to return to normal mode
+    
+    // Enable Interrupts
+    TXB0IE = 1; //enable interrupt
+    RXB0IE = 1; //enable interrupt
+    IRXIE = 1; //enable XMIT error interrupt
+    
+
+	// Clear TXREQ to get buffer ready for transmission
+    TXB0IF = 0; //clear flag
+    RXB0IF = 0;
+    IRXIF = 0;
+    TXB0CONbits.TXREQ = 0;
+    RXB0CONbits.RXFUL = 0; //make sure buffer is cleared
 }
 
 static void InitPins(void) 
@@ -243,10 +257,15 @@ static void InitPins(void)
   ADCON1 = 0x0F; //Set as digital
   TRISAbits.TRISA0 = 0; // Set as output (0 is output))
   TRISAbits.TRISA1 = 0;
+  TRISAbits.TRISA2 = 0;
+  TRISAbits.TRISA3 = 0;
   TRISBbits.TRISB2 = 0; // Set RB2 as output
   TRISBbits.TRISB3 = 1; // Set RB3 as input
   LATA1 = 0; //Set low initially
-  LATA0 = 1; // Set high initially
+  LATA0 = 0; // Set low initially
+  LATA2 = 0;
+  LATA3 = 1;
+  LATB2 = 0;
 }
 
 static void ToggleDebugLED(void)

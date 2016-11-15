@@ -17898,6 +17898,7 @@ ES_Event RunCan_XmitService( ES_Event ThisEvent );
 void CanXmitResponse(void);
 void CanRCVResponse(void);
 void XmitData(uint8_t DataByte);
+void CanErrorResponse(void);
 
 # 46 "Can_XmitService.c"
 static void InitCanHardware(void);
@@ -17939,11 +17940,12 @@ ES_Event ReturnEvent;
 if (ThisEvent.EventType == ES_INIT) {
 InitPins();
 InitCanHardware();
+XmitData(0xb7);
 }
 if (ThisEvent.EventType == ES_TIMEOUT) {
 if (ThisEvent.EventParam == 0) {
 ToggleDebugLED();
-XmitData(0xAA);
+XmitData(0xb7);
 }
 }
 ReturnEvent.EventType = ES_NO_EVENT;
@@ -17951,11 +17953,12 @@ return ReturnEvent;
 }
 
 void XmitData(uint8_t DataByte) {
+TXB0CONbits.TXREQ = 0;
 
 TXB0D0 = DataByte;
 
-TXB0SIDL = 0b01100000;
-TXB0SIDH = 0b00100100;
+TXB0SIDL = 0x00;
+TXB0SIDH = 0b00100000;
 
 TXB0DLC = 0b00000001;
 TXB0CONbits.TXPRI0 = 1;
@@ -17968,26 +17971,34 @@ TXB0CONbits.TXREQ = 1;
 void CanXmitResponse(void)
 {
 TXB0CONbits.TXREQ = 0;
-ES_Timer_InitTimer(0, 50);
+
 }
 
 void CanRCVResponse(void)
 {
 if (RXB0CONbits.RXFUL == 1) {
 RXB0CONbits.RXFUL = 0;
+ES_Timer_InitTimer(0, 50);
 }
 }
 
-# 183
+void CanErrorResponse(void)
+{
+LATA0 = 1;
+if (TXB0CONbits.TXERR == 1) {
+LATA2 = 1;
+}
+}
+
+# 194
 static void InitCanHardware(void)
 {
-
-
 
 
 CANCON = 0x80;
 
 while (CANSTATbits.OPMODE2 != 1);
+
 
 
 BRGCON1bits.SJW0 = 1;
@@ -18007,21 +18018,13 @@ BRGCON1bits.BRP1 = 1;
 
 RXB0CONbits.RXM0 = 1;
 RXB0CONbits.RXM1 = 1;
-RXF0SIDH = 0x20;
-RXF0SIDL = 0x60;
+RXB0CONbits.RXB0DBEN = 0;
+RXB0CONbits.FILHIT0 = 0;
+
+RXF0SIDH = 0x00;
+RXF0SIDL = 0b00100000;
 RXM0SIDH = 0x00;
 RXM0SIDL = 0x00;
-
-TXB0IE = 1;
-RXB0IE = 1;
-PIE3 = 0xff;
-
-
-TXB0IF = 0;
-RXB0IF = 0;
-TXB0CONbits.TXREQ = 0;
-RXB0CONbits.RXFUL = 0;
-
 
 
 
@@ -18029,6 +18032,19 @@ ECANCON = 0x00;
 CANCON = 0x00;
 
 while (CANSTATbits.OPMODE2 != 0);
+
+
+TXB0IE = 1;
+RXB0IE = 1;
+IRXIE = 1;
+
+
+
+TXB0IF = 0;
+RXB0IF = 0;
+IRXIF = 0;
+TXB0CONbits.TXREQ = 0;
+RXB0CONbits.RXFUL = 0;
 }
 
 static void InitPins(void)
@@ -18041,10 +18057,15 @@ LATA = 0x00;
 ADCON1 = 0x0F;
 TRISAbits.TRISA0 = 0;
 TRISAbits.TRISA1 = 0;
+TRISAbits.TRISA2 = 0;
+TRISAbits.TRISA3 = 0;
 TRISBbits.TRISB2 = 0;
 TRISBbits.TRISB3 = 1;
 LATA1 = 0;
-LATA0 = 1;
+LATA0 = 0;
+LATA2 = 0;
+LATA3 = 1;
+LATB2 = 0;
 }
 
 static void ToggleDebugLED(void)

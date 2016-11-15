@@ -105,7 +105,7 @@ void _HW_Timer_Init(TimerRate_t Rate)
     *  Timer prescaler is 1:4
     */
    T1CON = 0b00100001;
-
+   PEIE = 1;
    EnableInterrupts;                /* make sure that interrupts are enabled*/
 }
 
@@ -138,6 +138,10 @@ void interrupt ISR ( void )
    if (RXB0IF == 1) {
        RXB0IF = 0;
        CanRCVResponse();
+   }
+   if (IRXIF == 1) {
+       IRXIF = 0;
+       CanErrorResponse();
    }
 // add your interrupt processing here
 	   

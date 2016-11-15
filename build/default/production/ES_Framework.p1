@@ -1,14 +1,14 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F15550 `(uc ~T0 @X0 1 tf1`uc ]
+[v F15552 `(uc ~T0 @X0 1 tf1`uc ]
 "68 ES_Framework.c
 [c E1 0 1 2 3 4 .. ]
 [n E1 . ES_NO_EVENT ES_ERROR ES_INIT ES_TIMEOUT ES_SHORT_TIMEOUT  ]
 "24 ES_Events.h
 [s S2041 `E1 1 `ui 1 ]
 [n S2041 ES_Event_t EventType EventParam ]
-[v F15552 `(S2041 ~T0 @X0 1 tf1`S2041 ]
+[v F15554 `(S2041 ~T0 @X0 1 tf1`S2041 ]
 "47 ES_Framework.c
-[s S2042 `*F15550 1 `*F15552 1 ]
+[s S2042 `*F15552 1 `*F15554 1 ]
 [n S2042 . InitFunc RunFunc ]
 "21 Can_XmitService.h
 [v _InitCan_XmitService `(uc ~T0 @X0 0 ef1`uc ]
@@ -14154,6 +14154,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Can_XmitService.h: 24: void CanXmitResponse(void);
 [; ;Can_XmitService.h: 25: void CanRCVResponse(void);
 [; ;Can_XmitService.h: 26: void XmitData(uint8_t DataByte);
+[; ;Can_XmitService.h: 27: void CanErrorResponse(void);
 [; ;ES_Framework.c: 39: typedef bool InitFunc_t( uint8_t Priority );
 [; ;ES_Framework.c: 40: typedef ES_Event RunFunc_t( ES_Event ThisEvent );
 [; ;ES_Framework.c: 42: typedef InitFunc_t * pInitFunc;
@@ -14222,13 +14223,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 2045 ]
 {
 [; ;ES_Framework.c: 247: if ( (ServDescList[i].InitFunc == (pInitFunc)0) ||
-[v F15545 `(uc ~T0 @X0 1 tf1`uc ]
-[v F15566 `*F15550 ~T0 @X0 1 t ]
-[v F15547 `(S2041 ~T0 @X0 1 tf1`S2041 ]
+[v F15547 `(uc ~T0 @X0 1 tf1`uc ]
 [v F15568 `*F15552 ~T0 @X0 1 t ]
+[v F15549 `(S2041 ~T0 @X0 1 tf1`S2041 ]
+[v F15570 `*F15554 ~T0 @X0 1 t ]
 [; ;ES_Framework.c: 248: (ServDescList[i].RunFunc == (pRunFunc)0) )
 "248
-[e $ ! || == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 0 -> -> -> 0 `i `*F15545 `C*F15550 == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 1 -> -> -> 0 `i `*F15547 `C*F15552 2048  ]
+[e $ ! || == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 0 -> -> -> 0 `i `*F15547 `C*F15552 == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 1 -> -> -> 0 `i `*F15549 `C*F15554 2048  ]
 [; ;ES_Framework.c: 249: return FailedPointer;
 "249
 [e ) . `E15490 3 ]
@@ -14271,7 +14272,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "279
 [v _HighestPrior `uc ~T0 @X0 1 a ]
 "280
-[v F15574 `S2041 ~T0 @X0 1 s ThisEvent ]
+[v F15576 `S2041 ~T0 @X0 1 s ThisEvent ]
 [; ;ES_Framework.c: 279: uint8_t HighestPrior;
 [; ;ES_Framework.c: 280: static ES_Event ThisEvent;
 [; ;ES_Framework.c: 282: while(1){
@@ -14288,7 +14289,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _HighestPrior ( _ES_GetMSBitSet (1 _Ready ]
 [; ;ES_Framework.c: 289: if ( ES_DeQueue( EventQueues[HighestPrior].pMem, &ThisEvent ) == 0 ){
 "289
-[e $ ! == -> ( _ES_DeQueue (2 , -> . *U + &U _EventQueues * -> _HighestPrior `ux -> -> # *U &U _EventQueues `ui `ux 0 `*S2041 &U F15574 `i -> 0 `i 2057  ]
+[e $ ! == -> ( _ES_DeQueue (2 , -> . *U + &U _EventQueues * -> _HighestPrior `ux -> -> # *U &U _EventQueues `ui `ux 0 `*S2041 &U F15576 `i -> 0 `i 2057  ]
 {
 [; ;ES_Framework.c: 290: Ready &= ~BitNum2SetMask[HighestPrior];
 "290
@@ -14299,7 +14300,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Framework.c: 291: }
 [; ;ES_Framework.c: 292: if( ServDescList[HighestPrior].RunFunc(ThisEvent).EventType != ES_NO_EVENT) {
 "292
-[e $ ! != -> . ( *U . *U + &U _ServDescList * -> _HighestPrior `ux -> -> # *U &U _ServDescList `ui `ux 1 (1 F15574 0 `i -> . `E1 0 `i 2058  ]
+[e $ ! != -> . ( *U . *U + &U _ServDescList * -> _HighestPrior `ux -> -> # *U &U _ServDescList `ui `ux 1 (1 F15576 0 `i -> . `E1 0 `i 2058  ]
 {
 [; ;ES_Framework.c: 293: return FailedRun;
 "293

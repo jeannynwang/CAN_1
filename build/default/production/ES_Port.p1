@@ -14,6 +14,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _CCPR1H `Vuc ~T0 @X0 0 e@4031 ]
 "32341
 [v _T1CON `Vuc ~T0 @X0 0 e@4045 ]
+"36010
+[v _PEIE `Vb ~T0 @X0 0 e@32662 ]
 "35692
 [v _GIE `Vb ~T0 @X0 0 e@32663 ]
 "35320
@@ -26,6 +28,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _RXB0IF `Vb ~T0 @X0 0 e@32032 ]
 "25 Can_XmitService.h
 [v _CanRCVResponse `(v ~T0 @X0 0 ef ]
+"35800 /Applications/microchip/xc8/v1.38/include/pic18f2480.h
+[v _IRXIF `Vb ~T0 @X0 0 e@32039 ]
+"27 Can_XmitService.h
+[v _CanErrorResponse `(v ~T0 @X0 0 ef ]
 "45 ES_Timers.h
 [v _ES_Timer_Tick_Resp `(v ~T0 @X0 0 ef ]
 [; ;pic18f2480.h: 49: extern volatile unsigned char RXF6SIDH @ 0xD60;
@@ -14111,6 +14117,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Can_XmitService.h: 24: void CanXmitResponse(void);
 [; ;Can_XmitService.h: 25: void CanRCVResponse(void);
 [; ;Can_XmitService.h: 26: void XmitData(uint8_t DataByte);
+[; ;Can_XmitService.h: 27: void CanErrorResponse(void);
 "45 ES_Port.c
 [v _TickCount `Vuc ~T0 @X0 1 s ]
 [; ;ES_Port.c: 45: static volatile uint8_t TickCount;
@@ -14152,6 +14159,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Port.c: 107: T1CON = 0b00100001;
 "107
 [e = _T1CON -> -> 33 `i `uc ]
+[; ;ES_Port.c: 108: PEIE = 1;
+"108
+[e = _PEIE -> -> 1 `i `b ]
 [; ;ES_Port.c: 109: {GIE = 1;};
 "109
 {
@@ -14161,9 +14171,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "110
 [e :UE 2042 ]
 }
-[v F15487 `(v ~T0 @X0 1 tf ]
+[v F15489 `(v ~T0 @X0 1 tf ]
 "112
-[v _ISR `IF15487 ~T0 @X0 1 e ]
+[v _ISR `IF15489 ~T0 @X0 1 e ]
 "113
 {
 [; ;ES_Port.c: 112: void interrupt ISR ( void )
@@ -14171,9 +14181,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _ISR ]
 [f ]
 "115
-[v F15488 `ui ~T0 @X0 1 s LastTime ]
+[v F15490 `ui ~T0 @X0 1 s LastTime ]
 "116
-[v F15489 `ui ~T0 @X0 1 s NextTime ]
+[v F15491 `ui ~T0 @X0 1 s NextTime ]
 [; ;ES_Port.c: 115: static unsigned int LastTime;
 [; ;ES_Port.c: 116: static unsigned int NextTime;
 [; ;ES_Port.c: 118: if (CCP1IF == 1)
@@ -14184,16 +14194,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ES_Port.c: 120: LastTime = ((unsigned int)CCPR1H << 8)+ CCPR1L;
 "120
-[e = F15488 + << -> _CCPR1H `ui -> 8 `i -> _CCPR1L `ui ]
+[e = F15490 + << -> _CCPR1H `ui -> 8 `i -> _CCPR1L `ui ]
 [; ;ES_Port.c: 121: NextTime = LastTime + ((32000000L/4/4)/100);
 "121
-[e = F15489 -> + -> F15488 `l / / / -> 32000000 `l -> -> 4 `i `l -> -> 4 `i `l -> -> 100 `i `l `ui ]
+[e = F15491 -> + -> F15490 `l / / / -> 32000000 `l -> -> 4 `i `l -> -> 4 `i `l -> -> 100 `i `l `ui ]
 [; ;ES_Port.c: 122: CCPR1H = (unsigned char)(NextTime >> 8);
 "122
-[e = _CCPR1H -> >> F15489 -> 8 `i `uc ]
+[e = _CCPR1H -> >> F15491 -> 8 `i `uc ]
 [; ;ES_Port.c: 123: CCPR1L = (unsigned char)(NextTime & 0xFF);
 "123
-[e = _CCPR1L -> & F15489 -> -> 255 `i `ui `uc ]
+[e = _CCPR1L -> & F15491 -> -> 255 `i `ui `uc ]
 [; ;ES_Port.c: 124: CCP1IF = 0;
 "124
 [e = _CCP1IF -> -> 0 `i `b ]
@@ -14237,59 +14247,73 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 2046 ]
 [; ;ES_Port.c: 141: }
-[; ;ES_Port.c: 144: }
+[; ;ES_Port.c: 142: if (IRXIF == 1) {
+"142
+[e $ ! == -> _IRXIF `i -> 1 `i 2047  ]
+{
+[; ;ES_Port.c: 143: IRXIF = 0;
+"143
+[e = _IRXIF -> -> 0 `i `b ]
+[; ;ES_Port.c: 144: CanErrorResponse();
 "144
+[e ( _CanErrorResponse ..  ]
+"145
+}
+[e :U 2047 ]
+[; ;ES_Port.c: 145: }
+[; ;ES_Port.c: 148: }
+"148
 [e :UE 2043 ]
 }
-"191
+"195
 [v __HW_GetTickCount `(ui ~T0 @X0 1 ef ]
-"192
+"196
 {
-[; ;ES_Port.c: 191: uint16_t _HW_GetTickCount(void)
-[; ;ES_Port.c: 192: {
+[; ;ES_Port.c: 195: uint16_t _HW_GetTickCount(void)
+[; ;ES_Port.c: 196: {
 [e :U __HW_GetTickCount ]
 [f ]
-[; ;ES_Port.c: 193: return (SysTickCounter);
-"193
+[; ;ES_Port.c: 197: return (SysTickCounter);
+"197
 [e ) _SysTickCounter ]
-[e $UE 2047  ]
-[; ;ES_Port.c: 194: }
-"194
-[e :UE 2047 ]
+[e $UE 2048  ]
+[; ;ES_Port.c: 198: }
+"198
+[e :UE 2048 ]
 }
-"217
+"221
 [v __HW_Process_Pending_Ints `(uc ~T0 @X0 1 ef ]
-"218
+"222
 {
-[; ;ES_Port.c: 217: bool _HW_Process_Pending_Ints( void )
-[; ;ES_Port.c: 218: {
+[; ;ES_Port.c: 221: bool _HW_Process_Pending_Ints( void )
+[; ;ES_Port.c: 222: {
 [e :U __HW_Process_Pending_Ints ]
 [f ]
-[; ;ES_Port.c: 219: while (TickCount > 0)
-"219
-[e $U 2049  ]
-[e :U 2050 ]
-[; ;ES_Port.c: 220: {
-"220
-{
-[; ;ES_Port.c: 222: ES_Timer_Tick_Resp();
-"222
-[e ( _ES_Timer_Tick_Resp ..  ]
-[; ;ES_Port.c: 223: TickCount--;
+[; ;ES_Port.c: 223: while (TickCount > 0)
 "223
-[e -- _TickCount -> -> 1 `i `uc ]
-"224
-}
-[e :U 2049 ]
-"219
-[e $ > -> _TickCount `i -> 0 `i 2050  ]
+[e $U 2050  ]
 [e :U 2051 ]
-[; ;ES_Port.c: 224: }
-[; ;ES_Port.c: 226: return 1;
+[; ;ES_Port.c: 224: {
+"224
+{
+[; ;ES_Port.c: 226: ES_Timer_Tick_Resp();
 "226
-[e ) -> -> 1 `i `uc ]
-[e $UE 2048  ]
-[; ;ES_Port.c: 227: }
+[e ( _ES_Timer_Tick_Resp ..  ]
+[; ;ES_Port.c: 227: TickCount--;
 "227
-[e :UE 2048 ]
+[e -- _TickCount -> -> 1 `i `uc ]
+"228
+}
+[e :U 2050 ]
+"223
+[e $ > -> _TickCount `i -> 0 `i 2051  ]
+[e :U 2052 ]
+[; ;ES_Port.c: 228: }
+[; ;ES_Port.c: 230: return 1;
+"230
+[e ) -> -> 1 `i `uc ]
+[e $UE 2049  ]
+[; ;ES_Port.c: 231: }
+"231
+[e :UE 2049 ]
 }

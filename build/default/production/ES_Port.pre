@@ -17866,6 +17866,7 @@ ES_Event RunCan_XmitService( ES_Event ThisEvent );
 void CanXmitResponse(void);
 void CanRCVResponse(void);
 void XmitData(uint8_t DataByte);
+void CanErrorResponse(void);
 
 # 45 "ES_Port.c"
 static volatile uint8_t TickCount;
@@ -17897,7 +17898,7 @@ CCPR1H = 0b00000000;
 
 # 107
 T1CON = 0b00100001;
-
+PEIE = 1;
 {GIE = 1;};
 }
 
@@ -17928,17 +17929,21 @@ if (RXB0IF == 1) {
 RXB0IF = 0;
 CanRCVResponse();
 }
+if (IRXIF == 1) {
+IRXIF = 0;
+CanErrorResponse();
+}
 
 
 }
 
-# 191
+# 195
 uint16_t _HW_GetTickCount(void)
 {
 return (SysTickCounter);
 }
 
-# 217
+# 221
 bool _HW_Process_Pending_Ints( void )
 {
 while (TickCount > 0)

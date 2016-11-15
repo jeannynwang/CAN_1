@@ -17860,10 +17860,33 @@ ES_Event RunCan_XmitService( ES_Event ThisEvent );
 void CanXmitResponse(void);
 void CanRCVResponse(void);
 void XmitData(uint8_t DataByte);
+void CanErrorResponse(void);
 
 
 
 
 # 27 "ES_PostList.c"
 static bool PostToList( PostFunc_t *const*FuncList, uint8_t ListSize, ES_Event NewEvent);
+
+# 34
+static PostFunc_t * const DistList00[] = {PostCan_XmitService };
+
+# 78
+bool ES_PostList00( ES_Event NewEvent) {
+return PostToList( DistList00, (sizeof(DistList00)/sizeof(DistList00[0])), NewEvent);
+}
+
+# 142
+static bool PostToList( PostFunc_t *const*List, uint8_t ListSize, ES_Event NewEvent){
+uint8_t i;
+
+for ( i=0; i< ListSize; i++) {
+if ( List[i](NewEvent) != 1 )
+break;
+}
+if ( i != ListSize )
+return (0);
+else
+return(1);
+}
 

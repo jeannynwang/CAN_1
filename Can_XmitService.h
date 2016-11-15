@@ -24,5 +24,6 @@ ES_Event RunCan_XmitService( ES_Event ThisEvent );
 void CanXmitResponse(void); 
 void CanRCVResponse(void);
 void XmitData(uint8_t DataByte);
+void CanErrorResponse(void);
 
 #endif /* CAN_XMITSERVICE_H */
