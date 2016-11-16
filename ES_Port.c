@@ -139,9 +139,13 @@ void interrupt ISR ( void )
        RXB0IF = 0;
        CanRCVResponse();
    }
+   if (ERRIF == 1) {
+       ERRIF = 0;
+       CanErrorResponse();
+   }
    if (IRXIF == 1) {
        IRXIF = 0;
-       CanErrorResponse();
+       BusErrorResponse();
    }
 // add your interrupt processing here
 	   

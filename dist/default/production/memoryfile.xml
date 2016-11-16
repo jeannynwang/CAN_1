@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <executable name="dist/default/production/CAN_TEST.production.hex">
+  <executable name="dist/default/production/CAN_1.production.hex">
     <memory name="program">
       <units>bytes</units>
       <length>16384</length>
-      <used>2822</used>
-      <free>13562</free>
+      <used>2794</used>
+      <free>13590</free>
     </memory>
     <memory name="data">
       <units>bytes</units>

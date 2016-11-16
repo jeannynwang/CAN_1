@@ -7,10 +7,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S2041 ES_Event_t EventType EventParam ]
 "22 Can_XmitService.h
 [v _PostCan_XmitService `(uc ~T0 @X0 0 ef1`S2041 ]
-[v F15479 `(uc ~T0 @X0 1 tf1`S2041 ]
-[v F15477 `*F15479 ~T0 @X0 1 t ]
+[v F15481 `(uc ~T0 @X0 1 tf1`S2041 ]
+[v F15479 `*F15481 ~T0 @X0 1 t ]
 "27 ES_PostList.c
-[v _PostToList `(uc ~T0 @X0 0 sf3`*C*F15479`uc`S2041 ]
+[v _PostToList `(uc ~T0 @X0 0 sf3`*C*F15481`uc`S2041 ]
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -14090,11 +14090,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Can_XmitService.h: 25: void CanRCVResponse(void);
 [; ;Can_XmitService.h: 26: void XmitData(uint8_t DataByte);
 [; ;Can_XmitService.h: 27: void CanErrorResponse(void);
+[; ;Can_XmitService.h: 28: void BusErrorResponse(void);
 [; ;ES_PostList.c: 27: static bool PostToList( PostFunc_t *const*FuncList, uint8_t ListSize, ES_Event NewEvent);
-[v F15484 `(uc ~T0 @X0 1 tf1`S2041 ]
-[v F15485 `*F15484 ~T0 @X0 1 t ]
+[v F15486 `(uc ~T0 @X0 1 tf1`S2041 ]
+[v F15487 `*F15486 ~T0 @X0 1 t ]
 "34 ES_PostList.c
-[v _DistList00 `C*F15484 ~T0 @X0 -> 0 `x s ]
+[v _DistList00 `C*F15486 ~T0 @X0 -> 0 `x s ]
 [i _DistList00
 :U ..
 &U _PostCan_XmitService
@@ -14117,13 +14118,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 2042 ]
 }
 "142
-[v _PostToList `(uc ~T0 @X0 1 sf3`*C*F15479`uc`S2041 ]
+[v _PostToList `(uc ~T0 @X0 1 sf3`*C*F15481`uc`S2041 ]
 {
 [; ;ES_PostList.c: 142: static bool PostToList( PostFunc_t *const*List, uint8_t ListSize, ES_Event NewEvent){
 [e :U _PostToList ]
-[v F15490 `(uc ~T0 @X0 1 tf1`S2041 ]
-[v F15488 `*F15490 ~T0 @X0 1 t ]
-[v _List `*C*F15490 ~T0 @X0 1 r1 ]
+[v F15492 `(uc ~T0 @X0 1 tf1`S2041 ]
+[v F15490 `*F15492 ~T0 @X0 1 t ]
+[v _List `*C*F15492 ~T0 @X0 1 r1 ]
 [v _ListSize `uc ~T0 @X0 1 r2 ]
 [v _NewEvent `S2041 ~T0 @X0 1 r3 ]
 [f ]

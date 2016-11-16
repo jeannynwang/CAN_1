@@ -25,5 +25,6 @@ void CanXmitResponse(void);
 void CanRCVResponse(void);
 void XmitData(uint8_t DataByte);
 void CanErrorResponse(void);
+void BusErrorResponse(void);
 
 #endif /* CAN_XMITSERVICE_H */

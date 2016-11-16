@@ -39,6 +39,8 @@
 #define TENTH_SEC ONE_SEC/10
 #define THREE_SEC ONE_SEC*3
 #define TOGGLE_TIME ONE_SEC
+#define RX_NODE
+//#define TX_NODE
 /*---------------------------- Module Functions ---------------------------*/
 /* prototypes for private functions for this machine.They should be functions
    relevant to the behavior of this state machine
@@ -139,12 +141,18 @@ ES_Event RunCan_XmitService( ES_Event ThisEvent )
   if (ThisEvent.EventType == ES_INIT) {
      InitPins();
      InitCanHardware();
-     XmitData(0xb7);
+     #ifdef TX_NODE
+        XmitData(0xAA);
+     #endif
   } 
   if (ThisEvent.EventType == ES_TIMEOUT) {
         if (ThisEvent.EventParam == CAN_DEBUG_TIMER) {
-            ToggleDebugLED();
-            XmitData(0xb7);
+            #ifdef RX_NODE
+                ToggleDebugLED();
+            #endif
+            #ifdef TX_NODE
+                XmitData(0xAA);
+            #endif
         }
   }
   ReturnEvent.EventType = ES_NO_EVENT; // assume no errors
@@ -156,8 +164,10 @@ void XmitData(uint8_t DataByte) {
     // For testing Can transmit
     TXB0D0 = DataByte;
     // Load message identifier
-    TXB0SIDL = 0x00;
-    TXB0SIDH = 0b00100000; //only SID0 set
+//    TXB0SIDL = 0x00;
+//    TXB0SIDH = 0b00100000; //only SID0 set
+    TXB0SIDH = 0b10101010;
+    TXB0SIDL = 0b10100000;
     // Set Data Length and RTR pg. 291
     TXB0DLC = 0b00000001; // 1 byte for now w/ RTR cleared
     TXB0CONbits.TXPRI0 = 1; //highest priority level
@@ -170,24 +180,39 @@ void XmitData(uint8_t DataByte) {
 void CanXmitResponse(void) 
 {
     TXB0CONbits.TXREQ = 0;
-    ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);
+    #ifdef TX_NODE
+        ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);   
+    #endif
 }
 
 void CanRCVResponse(void)
 {
     if (RXB0CONbits.RXFUL == 1) {
         RXB0CONbits.RXFUL = 0;
-//        ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);
+    #ifdef RX_NODE
+        ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);   
+    #endif
     }
 }
 
 void CanErrorResponse(void) 
 {
-   LATA0 = 1;
-    if (TXB0CONbits.TXERR == 1) {
+    if (LATA0 == 1) {
+        LATA0 = 0;
+    } else if (LATA0 == 0) {
+        LATA0 = 1;
+    }
+}
+
+void BusErrorResponse(void)
+{
+    if (LATA2 == 1) {
+            LATA2 = 0;
+    } else if (LATA2 == 0) {
         LATA2 = 1;
     }
 }
+
 /***************************************************************************
  private functions
  ***************************************************************************/
@@ -198,7 +223,7 @@ static void InitCanHardware(void)
 	CANCON = 0x80; //Request Configuration Mode p. 282
 	// 3. Select ECAN Operational mode.
     while (CANSTATbits.OPMODE2 != 1);
-   
+    CIOCON = 0x20;
 	// 4. Set up the Baud Rate registers.
 	// page 317 (125kb/sec))
     
@@ -239,34 +264,49 @@ static void InitCanHardware(void)
 	// 5. Set up the Filter and Mask registers.
     //Set up Filter to receive everything for now by making mask all 0's
     //RXM0SIDH and L??? p. 309
-    RXB0CONbits.RXM0 = 1; //Receive all messages (including those with errors); filter criteria is ignored 
-    RXB0CONbits.RXM1 = 1;
-    RXB0CONbits.RXB0DBEN = 0; //No Receive Buffer 0 overflow to Receive Buffer 1 
-    RXB0CONbits.FILHIT0 = 0; //Acceptance Filter 0 (RXF0)
     
-    RXF0SIDH = 0x00;
-    RXF0SIDL = 0b00100000; //only SID0 set
-    RXM0SIDH = 0x00; //set mask as 0 to accept everything for now
-    RXM0SIDL = 0x00;
+    
+    RXB0CONbits.RXB0DBEN = 0; //No Receive Buffer 0 overflow to Receive Buffer 1 
+    
+    #ifdef RX_NODE
+        RXB0CONbits.RXM0 = 1; //Receive all messages (including those with errors); filter criteria is ignored 
+        RXB0CONbits.RXM1 = 1;
+        //RXF0SIDH = 0x00;
+        //RXF0SIDL = 0b00100000; //only SID0 set
+        RXF0SIDH = 0x10101010;
+        RXF0SIDL = 0b10100000;
+        RXM0SIDH = 0x00; //set mask as 0 to accept everything for now
+        RXM0SIDL = 0b00000000; //accept all  
+    #endif
+
+    #ifdef TX_NODE
+        RXF0SIDH = 0x00;
+        RXF0SIDL = 0b01000000; //only SID1 set
+        RXM0SIDH = 0x00; //set mask as 0 to accept everything for now
+        RXM0SIDL = 0b01100000; //only check SID0 and SID1   
+    #endif
     
     // 6. Set the ECAN module to normal mode or any
 	// other mode required by the application logic.
     ECANCON = 0x00; // Set in MODE 0 (should be default already)
-	CANCON = 0x00; //Return to normal request mode
-    //CANCON =  0b01010000; //Loopback mode
+	CANCON = 0b00010000; //Return to normal request mode
     while (CANSTATbits.OPMODE2 != 0); // wait to return to normal mode
     
     // Enable Interrupts
-    TXB0IE = 1; //enable interrupt
     RXB0IE = 1; //enable interrupt
-    IRXIE = 1; //enable XMIT error interrupt
+    ERRIE = 1; // Can module error
+    IRXIE = 1; // CAN Bus error
     
-
+    
 	// Clear TXREQ to get buffer ready for transmission
-    TXB0IF = 0; //clear flag
     RXB0IF = 0;
+    ERRIF = 0;
     IRXIF = 0;
-    TXB0CONbits.TXREQ = 0;
+    #ifdef TX_NODE
+        TXB0IE = 1; //enable interrupt
+        TXB0IF = 0; //clear flag
+        TXB0CONbits.TXREQ = 0;
+    #endif
     RXB0CONbits.RXFUL = 0; //make sure buffer is cleared
 }
 
