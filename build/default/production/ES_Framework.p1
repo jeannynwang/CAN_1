@@ -14153,7 +14153,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Can_XmitService.h: 23: ES_Event RunCan_XmitService( ES_Event ThisEvent );
 [; ;Can_XmitService.h: 24: void CanXmitResponse(void);
 [; ;Can_XmitService.h: 25: void CanRCVResponse(void);
-[; ;Can_XmitService.h: 26: void XmitData(uint8_t DataByte);
+[; ;Can_XmitService.h: 26: void XmitData(uint8_t* DataBytes);
 [; ;Can_XmitService.h: 27: void CanErrorResponse(void);
 [; ;Can_XmitService.h: 28: void BusErrorResponse(void);
 [; ;ES_Framework.c: 39: typedef bool InitFunc_t( uint8_t Priority );

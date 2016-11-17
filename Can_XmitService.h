@@ -23,7 +23,7 @@ bool PostCan_XmitService( ES_Event ThisEvent );
 ES_Event RunCan_XmitService( ES_Event ThisEvent );
 void CanXmitResponse(void); 
 void CanRCVResponse(void);
-void XmitData(uint8_t DataByte);
+void XmitData(uint8_t* DataBytes);
 void CanErrorResponse(void);
 void BusErrorResponse(void);
 

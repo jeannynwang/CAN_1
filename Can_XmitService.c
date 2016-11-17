@@ -41,6 +41,7 @@
 #define TOGGLE_TIME ONE_SEC
 #define RX_NODE
 //#define TX_NODE
+#define NUM_DATA_BYTES 2
 /*---------------------------- Module Functions ---------------------------*/
 /* prototypes for private functions for this machine.They should be functions
    relevant to the behavior of this state machine
@@ -55,8 +56,6 @@ static void ToggleDebugLED(void);
 
 // with the introduction of Gen2, we need a module level Priority var as well
 static uint8_t MyPriority;//module-level variables
-
-
 
 /*------------------------------ Module Code ------------------------------*/
 /****************************************************************************
@@ -142,7 +141,8 @@ ES_Event RunCan_XmitService( ES_Event ThisEvent )
      InitPins();
      InitCanHardware();
      #ifdef TX_NODE
-        XmitData(0xAA);
+        uint8_t Packet[2] = {0xAA, 0xB7};
+        XmitData(Packet);
      #endif
   } 
   if (ThisEvent.EventType == ES_TIMEOUT) {
@@ -151,7 +151,8 @@ ES_Event RunCan_XmitService( ES_Event ThisEvent )
                 ToggleDebugLED();
             #endif
             #ifdef TX_NODE
-                XmitData(0xAA);
+                uint8_t Packet[2] = {0xAA, 0xB7};
+                XmitData(Packet);
             #endif
         }
   }
@@ -159,22 +160,24 @@ ES_Event RunCan_XmitService( ES_Event ThisEvent )
   return ReturnEvent;
 }
 
-void XmitData(uint8_t DataByte) {
+void XmitData(uint8_t* DataBytes) {
     TXB0CONbits.TXREQ = 0;
     // For testing Can transmit
-    TXB0D0 = DataByte;
+    TXB0D0 = DataBytes[0];
+    TXB0D1 = DataBytes[1];
     // Load message identifier
-//    TXB0SIDL = 0x00;
-//    TXB0SIDH = 0b00100000; //only SID0 set
-    TXB0SIDH = 0b10101010;
-    TXB0SIDL = 0b10100000;
+    //Extended Message Identifer
+    TXB0SIDH = 0x00;
+    TXB0SIDL = 0x08; //EXIDE set
+    TXB0EIDH = 0x00;
+    TXB0EIDL = 0x01;
+    
     // Set Data Length and RTR pg. 291
-    TXB0DLC = 0b00000001; // 1 byte for now w/ RTR cleared
+    TXB0DLC = 0x02; // 2 byte w/ RTR cleared
     TXB0CONbits.TXPRI0 = 1; //highest priority level
     TXB0CONbits.TXPRI1 = 1;
     // Mark ready for transmission
     TXB0CONbits.TXREQ = 1;
-    //TXB0CON = 0b00001000;
 }
 
 void CanXmitResponse(void) 
@@ -188,7 +191,10 @@ void CanXmitResponse(void)
 void CanRCVResponse(void)
 {
     if (RXB0CONbits.RXFUL == 1) {
-        RXB0CONbits.RXFUL = 0;
+        if (RXB0D0 == 0xAA) {
+            LATA2 = 1; //read message
+        }
+        RXB0CONbits.RXFUL = 0; //clear buffer
     #ifdef RX_NODE
         ES_Timer_InitTimer(CAN_DEBUG_TIMER, TOGGLE_TIME);   
     #endif
@@ -206,11 +212,11 @@ void CanErrorResponse(void)
 
 void BusErrorResponse(void)
 {
-    if (LATA2 == 1) {
-            LATA2 = 0;
-    } else if (LATA2 == 0) {
-        LATA2 = 1;
-    }
+//    if (LATA2 == 1) {
+//            LATA2 = 0;
+//    } else if (LATA2 == 0) {
+//        LATA2 = 1;
+//    }
 }
 
 /***************************************************************************
@@ -225,20 +231,6 @@ static void InitCanHardware(void)
     while (CANSTATbits.OPMODE2 != 1);
     CIOCON = 0x20;
 	// 4. Set up the Baud Rate registers.
-	// page 317 (125kb/sec))
-    
-//    BRGCON1bits.SJW0 = 1; // Synchronization jump width time = 2 x TQ
-//    BRGCON2bits.SAM = 1; // Bus line is sampled three times prior to the sample point
-//    BRGCON2bits.SEG2PHTS = 1; // Seg2 length freely programmable
-//    BRGCON2bits.PRSEG1 = 1; // Propagation time = 3 x TQ
-//    BRGCON2bits.SEG1PH0 = 1; // Phase Segment 1 time = 8 x TQ
-//    BRGCON2bits.SEG1PH1 = 1; 
-//    BRGCON2bits.SEG1PH2 = 1; 
-//    BRGCON3bits.SEG2PH0 = 1; // Phase Segment 2 time = 4 x TQ
-//    BRGCON3bits.SEG2PH1 = 1;
-//    BRGCON1bits.BRP0 = 1; // TQ = (2 x 4)/FOSC > 500 ns
-//    BRGCON1bits.BRP1 = 1;
-    
     //114 kbs baud rate
     BRGCON2bits.SEG2PHTS = 1; //freely programmable SEG2PH
 
@@ -262,28 +254,36 @@ static void InitCanHardware(void)
     BRGCON1bits.SJW0 = 0; //1 TQ
     
 	// 5. Set up the Filter and Mask registers.
-    //Set up Filter to receive everything for now by making mask all 0's
-    //RXM0SIDH and L??? p. 309
-    
     
     RXB0CONbits.RXB0DBEN = 0; //No Receive Buffer 0 overflow to Receive Buffer 1 
-    
+    RXB0CONbits.RXM0 = 0; //Receive all messages Standard or EID
+    RXB0CONbits.RXM1 = 0;
     #ifdef RX_NODE
-        RXB0CONbits.RXM0 = 1; //Receive all messages (including those with errors); filter criteria is ignored 
-        RXB0CONbits.RXM1 = 1;
-        //RXF0SIDH = 0x00;
-        //RXF0SIDL = 0b00100000; //only SID0 set
-        RXF0SIDH = 0x10101010;
-        RXF0SIDL = 0b10100000;
-        RXM0SIDH = 0x00; //set mask as 0 to accept everything for now
-        RXM0SIDL = 0b00000000; //accept all  
+        RXF0SIDH = 0x00;
+        RXF0SIDL = 0x08;
+        RXF0EIDH = 0x00;
+        RXF0EIDL = 0x01;
+        
+        RXM0SIDH = 0x00; 
+        RXM0SIDL = 0x00; 
+        RXM0EIDH = 0x00;
+        RXM0EIDL = 0x01; //check bit 0
     #endif
 
     #ifdef TX_NODE
+//        RXF0SIDH = 0x00;
+//        RXF0SIDL = 0b01000000; //only SID1 set
+//        RXM0SIDH = 0x00; //set mask as 0 to accept everything for now
+//        RXM0SIDL = 0b01100000; //only check SID0 and SID1
         RXF0SIDH = 0x00;
-        RXF0SIDL = 0b01000000; //only SID1 set
+        RXF0SIDL = 0x08;
+        RXF0EIDH = 0x00;
+        RXF0EIDL = 0x01;
+        
         RXM0SIDH = 0x00; //set mask as 0 to accept everything for now
-        RXM0SIDL = 0b01100000; //only check SID0 and SID1   
+        RXM0SIDL = 0x00; //accept all 
+        RXM0EIDH = 0x00;
+        RXM0EIDL = 0x01;
     #endif
     
     // 6. Set the ECAN module to normal mode or any

@@ -17897,19 +17897,19 @@ bool PostCan_XmitService( ES_Event ThisEvent );
 ES_Event RunCan_XmitService( ES_Event ThisEvent );
 void CanXmitResponse(void);
 void CanRCVResponse(void);
-void XmitData(uint8_t DataByte);
+void XmitData(uint8_t* DataBytes);
 void CanErrorResponse(void);
 void BusErrorResponse(void);
 
-# 48 "Can_XmitService.c"
+# 49 "Can_XmitService.c"
 static void InitCanHardware(void);
 static void InitPins(void);
 static void ToggleDebugLED(void);
 
-# 57
+# 58
 static uint8_t MyPriority;
 
-# 80
+# 79
 bool InitCan_XmitService( uint8_t Priority )
 {
 ES_Event ThisEvent;
@@ -17927,13 +17927,13 @@ return 0;
 }
 }
 
-# 114
+# 113
 bool PostCan_XmitService( ES_Event ThisEvent )
 {
 return ES_PostToService( MyPriority, ThisEvent);
 }
 
-# 137
+# 136
 ES_Event RunCan_XmitService( ES_Event ThisEvent )
 {
 ES_Event ReturnEvent;
@@ -17949,41 +17949,46 @@ if (ThisEvent.EventParam == 0) {
 
 ToggleDebugLED();
 
-# 156
+# 157
 }
 }
 ReturnEvent.EventType = ES_NO_EVENT;
 return ReturnEvent;
 }
 
-void XmitData(uint8_t DataByte) {
+void XmitData(uint8_t* DataBytes) {
 TXB0CONbits.TXREQ = 0;
 
-TXB0D0 = DataByte;
+TXB0D0 = DataBytes[0];
+TXB0D1 = DataBytes[1];
 
 
+TXB0SIDH = 0x00;
+TXB0SIDL = 0x08;
+TXB0EIDH = 0x00;
+TXB0EIDL = 0x01;
 
-TXB0SIDH = 0b10101010;
-TXB0SIDL = 0b10100000;
 
-TXB0DLC = 0b00000001;
+TXB0DLC = 0x02;
 TXB0CONbits.TXPRI0 = 1;
 TXB0CONbits.TXPRI1 = 1;
 
 TXB0CONbits.TXREQ = 1;
-
 }
 
 void CanXmitResponse(void)
 {
 TXB0CONbits.TXREQ = 0;
 
-# 186
+# 189
 }
 
 void CanRCVResponse(void)
 {
 if (RXB0CONbits.RXFUL == 1) {
+if (RXB0D0 == 0xAA) {
+LATA2 = 1;
+}
 RXB0CONbits.RXFUL = 0;
 
 ES_Timer_InitTimer(0, 50);
@@ -18002,14 +18007,11 @@ LATA0 = 1;
 
 void BusErrorResponse(void)
 {
-if (LATA2 == 1) {
-LATA2 = 0;
-} else if (LATA2 == 0) {
-LATA2 = 1;
-}
+
+# 220
 }
 
-# 219
+# 225
 static void InitCanHardware(void)
 {
 
@@ -18019,7 +18021,7 @@ CANCON = 0x80;
 while (CANSTATbits.OPMODE2 != 1);
 CIOCON = 0x20;
 
-# 243
+
 BRGCON2bits.SEG2PHTS = 1;
 
 BRGCON1bits.BRP0 = 0;
@@ -18041,18 +18043,21 @@ BRGCON3bits.SEG2PH2 = 0;
 
 BRGCON1bits.SJW0 = 0;
 
-# 269
+
+
 RXB0CONbits.RXB0DBEN = 0;
+RXB0CONbits.RXM0 = 0;
+RXB0CONbits.RXM1 = 0;
 
+RXF0SIDH = 0x00;
+RXF0SIDL = 0x08;
+RXF0EIDH = 0x00;
+RXF0EIDL = 0x01;
 
-RXB0CONbits.RXM0 = 1;
-RXB0CONbits.RXM1 = 1;
-
-
-RXF0SIDH = 0x10101010;
-RXF0SIDL = 0b10100000;
 RXM0SIDH = 0x00;
-RXM0SIDL = 0b00000000;
+RXM0SIDL = 0x00;
+RXM0EIDH = 0x00;
+RXM0EIDL = 0x01;
 
 # 291
 ECANCON = 0x00;

@@ -123,7 +123,7 @@ ES_Timer_RATE_10mS 6783
 ES_Timer_RATE_16mS -15361
 ES_Timer_RATE_32mS -30721
 ]
-"82 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
+"81 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
 [e E30 . `uc
 ES_NO_EVENT 0
 ES_ERROR 1
@@ -131,7 +131,7 @@ ES_INIT 2
 ES_TIMEOUT 3
 ES_SHORT_TIMEOUT 4
 ]
-"193
+"199
 [e E15468 . `c
 ES_Timer_ERR -1
 ES_Timer_ACTIVE 1
@@ -168,23 +168,23 @@ ES_Timer_NOT_ACTIVE 0
 [v ___wmul __wmul `(ui  1 e 2 0 ]
 "15 /Applications/microchip/xc8/v1.38/sources/common/Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
-"80 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
+"79 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
 [v _InitCan_XmitService InitCan_XmitService `(uc  1 e 1 0 ]
-"114
+"113
 [v _PostCan_XmitService PostCan_XmitService `(uc  1 e 1 0 ]
 "24 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/ES_Events.h
 [s S37 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
-"137 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
+"136 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
 [v _RunCan_XmitService RunCan_XmitService `(S37  1 e 3 0 ]
-"180
+"183
 [v _CanXmitResponse CanXmitResponse `(v  1 e 1 0 ]
-"188
+"191
 [v _CanRCVResponse CanRCVResponse `(v  1 e 1 0 ]
-"198
+"204
 [v _CanErrorResponse CanErrorResponse `(v  1 e 1 0 ]
-"207
+"213
 [v _BusErrorResponse BusErrorResponse `(v  1 e 1 0 ]
-"219
+"225
 [v _InitCanHardware InitCanHardware `(v  1 s 1 InitCanHardware ]
 "313
 [v _InitPins InitPins `(v  1 s 1 InitPins ]
@@ -234,10 +234,18 @@ ES_Timer_NOT_ACTIVE 0
 [v _RXF0SIDH RXF0SIDH `VEuc  1 e 1 @3840 ]
 "16387
 [v _RXF0SIDL RXF0SIDL `VEuc  1 e 1 @3841 ]
+"16500
+[v _RXF0EIDH RXF0EIDH `VEuc  1 e 1 @3842 ]
+"16632
+[v _RXF0EIDL RXF0EIDL `VEuc  1 e 1 @3843 ]
 "19309
 [v _RXM0SIDH RXM0SIDH `VEuc  1 e 1 @3864 ]
 "19441
 [v _RXM0SIDL RXM0SIDL `VEuc  1 e 1 @3865 ]
+"19545
+[v _RXM0EIDH RXM0EIDH `VEuc  1 e 1 @3866 ]
+"19677
+[v _RXM0EIDL RXM0EIDL `VEuc  1 e 1 @3867 ]
 [s S526 . 1 `uc 1 TXPRI0 1 0 :1:0 
 `uc 1 TXPRI1 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
@@ -274,11 +282,17 @@ ES_Timer_NOT_ACTIVE 0
 [v _TXB0SIDH TXB0SIDH `VEuc  1 e 1 @3905 ]
 "23315
 [v _TXB0SIDL TXB0SIDL `VEuc  1 e 1 @3906 ]
+"23419
+[v _TXB0EIDH TXB0EIDH `VEuc  1 e 1 @3907 ]
+"23551
+[v _TXB0EIDL TXB0EIDL `VEuc  1 e 1 @3908 ]
 "23683
 [v _TXB0DLC TXB0DLC `VEuc  1 e 1 @3909 ]
 "23771
 [v _TXB0D0 TXB0D0 `VEuc  1 e 1 @3910 ]
-[s S598 . 1 `uc 1 FILHIT0 1 0 :1:0 
+"23832
+[v _TXB0D1 TXB0D1 `VEuc  1 e 1 @3911 ]
+[s S601 . 1 `uc 1 FILHIT0 1 0 :1:0 
 `uc 1 JTOFF_FILHIT1 1 0 :1:1 
 `uc 1 RXB0DBEN_FILHIT2 1 0 :1:2 
 `uc 1 RXRTRRO_FILHIT3 1 0 :1:3 
@@ -288,55 +302,57 @@ ES_Timer_NOT_ACTIVE 0
 `uc 1 RXFUL 1 0 :1:7 
 ]
 "26001
-[s S607 . 1 `uc 1 . 1 0 :1:0 
+[s S610 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 JTOFF 1 0 :1:1 
 `uc 1 RXB0DBEN 1 0 :1:2 
 `uc 1 RXRTRRO 1 0 :1:3 
 `uc 1 . 1 0 :1:4 
 `uc 1 RXM0 1 0 :1:5 
 ]
-[s S614 . 1 `uc 1 . 1 0 :1:0 
+[s S617 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 FILHIT1 1 0 :1:1 
 `uc 1 FILHIT2 1 0 :1:2 
 `uc 1 FILHIT3 1 0 :1:3 
 `uc 1 . 1 0 :1:4 
 `uc 1 RTRRO 1 0 :1:5 
 ]
-[s S621 . 1 `uc 1 . 1 0 :2:0 
+[s S624 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 RXBODBEN 1 0 :1:2 
 ]
-[s S624 . 1 `uc 1 RXB0FILHIT0 1 0 :1:0 
+[s S627 . 1 `uc 1 RXB0FILHIT0 1 0 :1:0 
 ]
-[s S626 . 1 `uc 1 . 1 0 :1:0 
+[s S629 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 RXB0FILHIT1 1 0 :1:1 
 ]
-[s S629 . 1 `uc 1 . 1 0 :2:0 
+[s S632 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 RXB0FILHIT2 1 0 :1:2 
 ]
-[s S632 . 1 `uc 1 . 1 0 :3:0 
+[s S635 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 RXB0FILHIT3 1 0 :1:3 
 ]
-[s S635 . 1 `uc 1 . 1 0 :4:0 
+[s S638 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 RXB0FILHIT4 1 0 :1:4 
 ]
-[s S638 . 1 `uc 1 . 1 0 :7:0 
+[s S641 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 RXB0FUL 1 0 :1:7 
 ]
-[s S641 . 1 `uc 1 . 1 0 :5:0 
+[s S644 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 RXB0M0 1 0 :1:5 
 ]
-[s S644 . 1 `uc 1 . 1 0 :6:0 
+[s S647 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RXB0M1 1 0 :1:6 
 ]
-[s S647 . 1 `uc 1 . 1 0 :3:0 
+[s S650 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 RXB0RTRR0 1 0 :1:3 
 ]
-[s S650 . 1 `uc 1 . 1 0 :5:0 
+[s S653 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 RXB0RTRRO 1 0 :1:5 
 ]
-[u S653 . 1 `S598 1 . 1 0 `S607 1 . 1 0 `S614 1 . 1 0 `S621 1 . 1 0 `S624 1 . 1 0 `S626 1 . 1 0 `S629 1 . 1 0 `S632 1 . 1 0 `S635 1 . 1 0 `S638 1 . 1 0 `S641 1 . 1 0 `S644 1 . 1 0 `S647 1 . 1 0 `S650 1 . 1 0 ]
-[v _RXB0CONbits RXB0CONbits `VES653  1 e 1 @3936 ]
-[s S733 . 1 `uc 1 EICODE0 1 0 :1:0 
+[u S656 . 1 `S601 1 . 1 0 `S610 1 . 1 0 `S617 1 . 1 0 `S624 1 . 1 0 `S627 1 . 1 0 `S629 1 . 1 0 `S632 1 . 1 0 `S635 1 . 1 0 `S638 1 . 1 0 `S641 1 . 1 0 `S644 1 . 1 0 `S647 1 . 1 0 `S650 1 . 1 0 `S653 1 . 1 0 ]
+[v _RXB0CONbits RXB0CONbits `VES656  1 e 1 @3936 ]
+"26786
+[v _RXB0D0 RXB0D0 `VEuc  1 e 1 @3942 ]
+[s S737 . 1 `uc 1 EICODE0 1 0 :1:0 
 `uc 1 EICODE1_ICODE0 1 0 :1:1 
 `uc 1 EICODE2_ICODE1 1 0 :1:2 
 `uc 1 EICODE3_ICODE2 1 0 :1:3 
@@ -346,21 +362,21 @@ ES_Timer_NOT_ACTIVE 0
 `uc 1 OPMODE2 1 0 :1:7 
 ]
 "27303
-[s S742 . 1 `uc 1 ICODE0 1 0 :1:0 
+[s S746 . 1 `uc 1 ICODE0 1 0 :1:0 
 `uc 1 ICODE1 1 0 :1:1 
 `uc 1 ICODE2 1 0 :1:2 
 `uc 1 ICODE3 1 0 :1:3 
 ]
-[s S747 . 1 `uc 1 . 1 0 :1:0 
+[s S751 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 EICODE1 1 0 :1:1 
 `uc 1 EICODE2 1 0 :1:2 
 `uc 1 EICODE3 1 0 :1:3 
 ]
-[u S752 . 1 `S733 1 . 1 0 `S742 1 . 1 0 `S747 1 . 1 0 ]
-[v _CANSTATbits CANSTATbits `VES752  1 e 1 @3950 ]
+[u S756 . 1 `S737 1 . 1 0 `S746 1 . 1 0 `S751 1 . 1 0 ]
+[v _CANSTATbits CANSTATbits `VES756  1 e 1 @3950 ]
 "27382
 [v _CANCON CANCON `VEuc  1 e 1 @3951 ]
-[s S805 . 1 `uc 1 BRP0 1 0 :1:0 
+[s S809 . 1 `uc 1 BRP0 1 0 :1:0 
 `uc 1 BRP1 1 0 :1:1 
 `uc 1 BRP2 1 0 :1:2 
 `uc 1 BRP3 1 0 :1:3 
@@ -370,9 +386,9 @@ ES_Timer_NOT_ACTIVE 0
 `uc 1 SJW1 1 0 :1:7 
 ]
 "27502
-[u S814 . 1 `S805 1 . 1 0 ]
-[v _BRGCON1bits BRGCON1bits `VES814  1 e 1 @3952 ]
-[s S777 . 1 `uc 1 PRSEG0 1 0 :1:0 
+[u S818 . 1 `S809 1 . 1 0 ]
+[v _BRGCON1bits BRGCON1bits `VES818  1 e 1 @3952 ]
+[s S781 . 1 `uc 1 PRSEG0 1 0 :1:0 
 `uc 1 PRSEG1 1 0 :1:1 
 `uc 1 PRSEG2 1 0 :1:2 
 `uc 1 SEG1PH0 1 0 :1:3 
@@ -382,12 +398,12 @@ ES_Timer_NOT_ACTIVE 0
 `uc 1 SEG2PHT 1 0 :1:7 
 ]
 "27567
-[s S786 . 1 `uc 1 . 1 0 :7:0 
+[s S790 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 SEG2PHTS 1 0 :1:7 
 ]
-[u S789 . 1 `S777 1 . 1 0 `S786 1 . 1 0 ]
-[v _BRGCON2bits BRGCON2bits `VES789  1 e 1 @3953 ]
-[s S826 . 1 `uc 1 SEG2PH0 1 0 :1:0 
+[u S793 . 1 `S781 1 . 1 0 `S790 1 . 1 0 ]
+[v _BRGCON2bits BRGCON2bits `VES793  1 e 1 @3953 ]
+[s S830 . 1 `uc 1 SEG2PH0 1 0 :1:0 
 `uc 1 SEG2PH1 1 0 :1:1 
 `uc 1 SEG2PH2 1 0 :1:2 
 `uc 1 . 1 0 :3:3 
@@ -395,8 +411,8 @@ ES_Timer_NOT_ACTIVE 0
 `uc 1 WAKDIS 1 0 :1:7 
 ]
 "27631
-[u S833 . 1 `S826 1 . 1 0 ]
-[v _BRGCON3bits BRGCON3bits `VES833  1 e 1 @3954 ]
+[u S837 . 1 `S830 1 . 1 0 ]
+[v _BRGCON3bits BRGCON3bits `VES837  1 e 1 @3954 ]
 "27660
 [v _CIOCON CIOCON `VEuc  1 e 1 @3955 ]
 "27929
@@ -409,7 +425,7 @@ ES_Timer_NOT_ACTIVE 0
 [v _LATA LATA `VEuc  1 e 1 @3977 ]
 "28724
 [v _LATB LATB `VEuc  1 e 1 @3978 ]
-[s S859 . 1 `uc 1 TRISA0 1 0 :1:0 
+[s S867 . 1 `uc 1 TRISA0 1 0 :1:0 
 `uc 1 TRISA1 1 0 :1:1 
 `uc 1 TRISA2 1 0 :1:2 
 `uc 1 TRISA3 1 0 :1:3 
@@ -419,7 +435,7 @@ ES_Timer_NOT_ACTIVE 0
 `uc 1 TRISA7 1 0 :1:7 
 ]
 "29020
-[s S868 . 1 `uc 1 RA0 1 0 :1:0 
+[s S876 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
 `uc 1 RA2 1 0 :1:2 
 `uc 1 RA3 1 0 :1:3 
@@ -428,9 +444,9 @@ ES_Timer_NOT_ACTIVE 0
 `uc 1 RA6 1 0 :1:6 
 `uc 1 RA7 1 0 :1:7 
 ]
-[u S877 . 1 `S859 1 . 1 0 `S868 1 . 1 0 ]
-[v _TRISAbits TRISAbits `VES877  1 e 1 @3986 ]
-[s S899 . 1 `uc 1 TRISB0 1 0 :1:0 
+[u S885 . 1 `S867 1 . 1 0 `S876 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES885  1 e 1 @3986 ]
+[s S907 . 1 `uc 1 TRISB0 1 0 :1:0 
 `uc 1 TRISB1 1 0 :1:1 
 `uc 1 TRISB2 1 0 :1:2 
 `uc 1 TRISB3 1 0 :1:3 
@@ -440,7 +456,7 @@ ES_Timer_NOT_ACTIVE 0
 `uc 1 TRISB7 1 0 :1:7 
 ]
 "29241
-[s S908 . 1 `uc 1 RB0 1 0 :1:0 
+[s S916 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -449,8 +465,8 @@ ES_Timer_NOT_ACTIVE 0
 `uc 1 RB6 1 0 :1:6 
 `uc 1 RB7 1 0 :1:7 
 ]
-[u S917 . 1 `S899 1 . 1 0 `S908 1 . 1 0 ]
-[v _TRISBbits TRISBbits `VES917  1 e 1 @3987 ]
+[u S925 . 1 `S907 1 . 1 0 `S916 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES925  1 e 1 @3987 ]
 "29722
 [v _PIE1 PIE1 `VEuc  1 e 1 @3997 ]
 "31379
@@ -504,7 +520,7 @@ ES_Timer_NOT_ACTIVE 0
 [v _SCS1 SCS1 `VEb  1 e 0 @32409 ]
 "38266 /Applications/microchip/xc8/v1.38/include/pic18f2480.h
 [v _TXB0IF TXB0IF `VEb  1 e 0 @32034 ]
-"57 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
+"58 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
 [v _MyPriority MyPriority `uc  1 s 1 MyPriority ]
 [s S37 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
 "68 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/ES_Framework.c
@@ -585,12 +601,12 @@ ES_Timer_NOT_ACTIVE 0
 [v ES_Timer_Tick_Resp@NewEvent NewEvent `S37  1 s 3 NewEvent ]
 "312
 } 0
-"114 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
+"113 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
 [v _PostCan_XmitService PostCan_XmitService `(uc  1 e 1 0 ]
 {
 [s S37 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
 [v PostCan_XmitService@ThisEvent ThisEvent `S37  1 p 3 0 ]
-"117
+"116
 } 0
 "79 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/ES_LookupTables.c
 [v _ES_GetMSBitSet ES_GetMSBitSet `(uc  1 e 1 0 ]
@@ -607,14 +623,14 @@ ES_Timer_NOT_ACTIVE 0
 } 0
 "24 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/ES_Events.h
 [s S37 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
-"137 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
+"136 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
 [v _RunCan_XmitService RunCan_XmitService `(S37  1 e 3 0 ]
 {
-"139
+"138
 [v RunCan_XmitService@ReturnEvent ReturnEvent `S37  1 a 3 24 ]
-"137
+"136
 [v RunCan_XmitService@ThisEvent ThisEvent `S37  1 p 3 21 ]
-"160
+"161
 } 0
 "334
 [v _ToggleDebugLED ToggleDebugLED `(v  1 s 1 ToggleDebugLED ]
@@ -626,7 +642,7 @@ ES_Timer_NOT_ACTIVE 0
 {
 "332
 } 0
-"219
+"225
 [v _InitCanHardware InitCanHardware `(v  1 s 1 InitCanHardware ]
 {
 "311
@@ -683,18 +699,18 @@ ES_Timer_NOT_ACTIVE 0
 [v ES_Initialize@NewRate NewRate `E15419  1 p 2 4 ]
 "257
 } 0
-"80 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
+"79 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
 [v _InitCan_XmitService InitCan_XmitService `(uc  1 e 1 0 ]
 {
 [v InitCan_XmitService@Priority Priority `uc  1 a 1 wreg ]
 [s S37 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
-"82
+"81
 [v InitCan_XmitService@ThisEvent ThisEvent `S37  1 a 3 0 ]
-"80
+"79
 [v InitCan_XmitService@Priority Priority `uc  1 a 1 wreg ]
-"84
+"83
 [v InitCan_XmitService@Priority Priority `uc  1 a 1 3 ]
-"95
+"94
 } 0
 "351 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/ES_Framework.c
 [v _ES_PostToService ES_PostToService `(uc  1 e 1 0 ]
@@ -775,15 +791,15 @@ ES_Timer_NOT_ACTIVE 0
 [v ISR@NextTime NextTime `ui  1 s 2 NextTime ]
 "152
 } 0
-"180 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
+"183 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
 [v _CanXmitResponse CanXmitResponse `(v  1 e 1 0 ]
 {
-"186
+"189
 } 0
-"188
+"191
 [v _CanRCVResponse CanRCVResponse `(v  1 e 1 0 ]
 {
-"196
+"202
 } 0
 "229 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/ES_Timers.c
 [v _ES_Timer_InitTimer ES_Timer_InitTimer `(E15468  1 e 1 0 ]
@@ -795,13 +811,13 @@ ES_Timer_NOT_ACTIVE 0
 [v ES_Timer_InitTimer@Num Num `uc  1 a 1 4 ]
 "241
 } 0
-"198 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
+"204 /Users/jeannywang/Desktop/ME218D/CAN Testing/CAN_1/Can_XmitService.c
 [v _CanErrorResponse CanErrorResponse `(v  1 e 1 0 ]
 {
-"205
+"211
 } 0
-"207
+"213
 [v _BusErrorResponse BusErrorResponse `(v  1 e 1 0 ]
 {
-"214
+"220
 } 0
